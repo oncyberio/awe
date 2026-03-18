@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsc",
     "check": "tsc --noEmit",
+    "prepack": "npm run build",
     "start": "tsx src/index.ts",
     "test": "vitest run",
     "test:watch": "vitest"
