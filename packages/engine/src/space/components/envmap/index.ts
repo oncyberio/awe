@@ -34,7 +34,7 @@ export class EnvmapComponentFactory extends DefaultComponentFactory<EnvmapCompon
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

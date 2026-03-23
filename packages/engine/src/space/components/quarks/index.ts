@@ -35,7 +35,7 @@ export class QuarksComponentFactory extends DefaultComponentFactory<QuarksCompon
       speed: 1,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

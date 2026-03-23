@@ -39,7 +39,7 @@ export class BatchComponentFactory extends DefaultComponentFactory<BatchComponen
             debug: false,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
             valuePaths: ["positions", "rotations", "scales", "preset"],
         });

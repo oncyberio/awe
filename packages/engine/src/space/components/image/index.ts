@@ -49,7 +49,7 @@ export class ImageComponentFactory extends DefaultComponentFactory<ImageComponen
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

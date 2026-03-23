@@ -47,7 +47,7 @@ export class ReflectorComponentFactory extends DefaultComponentFactory<Reflector
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

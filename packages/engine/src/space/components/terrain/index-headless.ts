@@ -60,7 +60,7 @@ export class TerrainComponentFactoryHeadless extends DefaultComponentFactory<Ter
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

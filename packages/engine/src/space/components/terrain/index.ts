@@ -93,7 +93,7 @@ export class TerrainComponentFactory extends DefaultComponentFactory<TerrainComp
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

@@ -54,7 +54,7 @@ export class ModelComponentFactoryHeadless extends DefaultComponentFactory<Model
       center: true,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
       valuePaths: ["animations", "optimized", "plugins"],
     });

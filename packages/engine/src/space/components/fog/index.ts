@@ -33,7 +33,7 @@ export class FogComponentFactory extends DefaultComponentFactory<FogComponent> {
             fadeColor: "#054d73",
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

@@ -33,7 +33,7 @@ export class DustComponentFactory extends DefaultComponentFactory<DustComponent>
       target: null,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

@@ -52,7 +52,7 @@ export class GrassComponentFactory extends DefaultComponentFactory<GrassComponen
             colorRepartition: 0.5,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

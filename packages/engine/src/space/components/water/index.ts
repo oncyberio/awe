@@ -34,7 +34,7 @@ export class WaterComponentFactory extends DefaultComponentFactory<WaterComponen
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

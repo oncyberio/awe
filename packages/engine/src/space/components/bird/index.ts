@@ -49,7 +49,7 @@ export class BirdComponentFactory extends DefaultComponentFactory<BirdComponent>
             color: 0xffffff,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

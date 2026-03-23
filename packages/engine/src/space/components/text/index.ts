@@ -49,7 +49,7 @@ export class TextComponentFactory extends DefaultComponentFactory<TextComponent>
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

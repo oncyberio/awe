@@ -45,7 +45,7 @@ export class AvatarComponentFactoryHeadless extends DefaultComponentFactory<Avat
       ignoreLOD: false,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
       valuePaths: ["plugins"],
     });

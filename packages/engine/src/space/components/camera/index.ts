@@ -51,7 +51,7 @@ export class CameraComponentFactory extends DefaultComponentFactory<CameraCompon
             fov: 60,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

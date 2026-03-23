@@ -37,7 +37,7 @@ export class PostProComponentFactory extends DefaultComponentFactory<PostProcess
             trippyOpts: POST_PROCESSINGS.Trippy.opts,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

@@ -51,7 +51,7 @@ export class GodrayComponentFactory extends DefaultComponentFactory<GodrayCompon
             color: 0xffffff,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

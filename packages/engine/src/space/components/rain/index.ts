@@ -25,7 +25,7 @@ export class RainComponentFactory extends DefaultComponentFactory<RainComponent>
             intensity: 0.5,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

@@ -44,7 +44,7 @@ export class SplineComponentFactory extends DefaultComponentFactory<SplineCompon
             followerSpeedVariation: 0,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

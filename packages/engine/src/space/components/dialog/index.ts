@@ -39,7 +39,7 @@ export class DialogComponentFactory extends DefaultComponentFactory<DialogCompon
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

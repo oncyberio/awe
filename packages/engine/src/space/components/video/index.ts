@@ -51,7 +51,7 @@ export class VideoComponentFactory extends DefaultComponentFactory<VideoComponen
       },
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

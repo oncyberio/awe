@@ -47,7 +47,7 @@ export class InstancedMeshComponentFactory extends DefaultComponentFactory<Insta
             useSorting: true
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

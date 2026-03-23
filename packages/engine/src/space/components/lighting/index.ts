@@ -39,7 +39,7 @@ export class LightingComponentFactory extends DefaultComponentFactory<LightingCo
       size: 100,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

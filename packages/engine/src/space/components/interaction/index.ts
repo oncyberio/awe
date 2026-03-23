@@ -46,7 +46,7 @@ export class InteractionComponentFactory extends DefaultComponentFactory<Interac
             billboard: true,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

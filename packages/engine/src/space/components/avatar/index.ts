@@ -62,7 +62,7 @@ export class AvatarComponentFactory extends DefaultComponentFactory<AvatarCompon
             ignoreLOD: false,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
             valuePaths: ["plugins"],
         });

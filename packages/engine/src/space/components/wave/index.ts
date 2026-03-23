@@ -45,7 +45,7 @@ export class WaveComponentFactory extends DefaultComponentFactory<WaveComponent>
       target: null,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

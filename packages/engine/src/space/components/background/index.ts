@@ -33,7 +33,7 @@ export class BackgroundComponentFactory extends DefaultComponentFactory<Backgrou
       },
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

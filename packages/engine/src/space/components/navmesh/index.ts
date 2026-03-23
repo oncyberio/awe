@@ -33,7 +33,7 @@ export class NavmeshComponentFactory extends DefaultComponentFactory<NavmeshComp
             url: "",
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

@@ -57,7 +57,7 @@ export class MeshComponentFactoryHeadless extends DefaultComponentFactory<MeshCo
       displayInEditor: true,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
       valuePaths: ["plugins"],
     });

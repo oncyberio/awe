@@ -48,7 +48,7 @@ export class ParticlesComponentFactory extends DefaultComponentFactory<Particles
       behaviors: [],
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
       valuePaths: ["behaviors"],
     });

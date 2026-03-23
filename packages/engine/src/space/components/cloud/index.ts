@@ -47,7 +47,7 @@ export class CloudComponentFactory extends DefaultComponentFactory<CloudComponen
       atlas: 0,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

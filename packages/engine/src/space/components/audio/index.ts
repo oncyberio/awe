@@ -44,7 +44,7 @@ export class AudioComponentFactory extends DefaultComponentFactory<AudioComponen
       },
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

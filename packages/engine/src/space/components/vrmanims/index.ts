@@ -33,7 +33,7 @@ export class VRMAnimsComponentFactory extends DefaultComponentFactory<VRMAnimsCo
             url: null,
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
             valuePaths: ["anims"],
         });

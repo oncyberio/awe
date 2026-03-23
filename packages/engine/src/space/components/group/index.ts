@@ -25,7 +25,7 @@ export class GroupComponentFactory extends DefaultComponentFactory<GroupComponen
       scale: { x: 1, y: 1, z: 1 },
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

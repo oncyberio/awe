@@ -27,7 +27,7 @@ export class ObjectComponentFactory extends DefaultComponentFactory<ObjectCompon
             type: "object",
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

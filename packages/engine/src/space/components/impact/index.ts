@@ -58,7 +58,7 @@ export class ImpactComponentFactory extends DefaultComponentFactory<ImpactCompon
       type: "impact",
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

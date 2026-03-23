@@ -33,7 +33,7 @@ export class DestinationComponentFactory extends DefaultComponentFactory<Destina
       },
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
     });
   }

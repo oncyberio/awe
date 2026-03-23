@@ -73,7 +73,7 @@ export class ModelComponentFactory extends DefaultComponentFactory<ModelComponen
       center: true,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
       valuePaths: ["animations", "optimized", "plugins"],
     });

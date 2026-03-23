@@ -60,7 +60,7 @@ export class IframeComponentFactory extends DefaultComponentFactory<IframeCompon
             },
         };
 
-        this.createDataWrapper({
+        this.setDataConfig({
             defaultData,
         });
     }

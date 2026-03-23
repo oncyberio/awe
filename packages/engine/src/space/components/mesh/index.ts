@@ -60,7 +60,7 @@ export class MeshComponentFactory extends DefaultComponentFactory<MeshComponent>
       displayInEditor: true,
     };
 
-    this.createDataWrapper({
+    this.setDataConfig({
       defaultData,
       valuePaths: ["plugins"],
     });
