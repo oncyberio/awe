@@ -47,11 +47,11 @@ export type {
   ControlStateManagerOptions,
 } from "./control-state";
 export { GamepadButtons, GamepadAxes } from "./control-state";
-export { DomInputCapture } from "./input-capture";
+export { BrowserInputCapture } from "./input-capture";
 export type {
   ControlStateCaptureBackend,
   ControlStateCaptureMode,
-  DomInputCaptureOptions,
+  BrowserInputCaptureOptions,
 } from "./input-capture";
 
 // Bindings (device-based factories)

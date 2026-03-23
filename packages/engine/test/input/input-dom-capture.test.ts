@@ -2,8 +2,8 @@ import { createInputs } from "../../src/input/input-map";
 import { Mouse, Touch, withProcessors } from "../../src/input/bindings";
 import { Processors } from "../../src/input/processors";
 import {
+  BrowserInputCapture,
   ControlStateManager,
-  DomInputCapture,
 } from "../../src/input/index";
 import { setupNavigatorMock } from "./input-test-utils";
 
@@ -50,7 +50,7 @@ class MockEventTarget {
   }
 }
 
-describe("DomInputCapture", () => {
+describe("BrowserInputCapture", () => {
   beforeAll(() => {
     setupNavigatorMock();
   });
@@ -59,7 +59,7 @@ describe("DomInputCapture", () => {
     const pointerTarget = new MockEventTarget();
     const keyboardTarget = new MockEventTarget();
     const controlState = new ControlStateManager({
-      capture: new DomInputCapture({
+      capture: new BrowserInputCapture({
         target: pointerTarget as unknown as EventTarget,
         keyboardTarget: keyboardTarget as unknown as EventTarget,
       }),
