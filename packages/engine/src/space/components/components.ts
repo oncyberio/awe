@@ -83,13 +83,16 @@ export type ComponentTypeMap = {
 
 export type CType = keyof ComponentTypeMap;
 
+export type ComponentDataMap = {
+  [T in CType]: ComponentTypeMap[T]["data"];
+};
+
 /**
  * @public
  */
-export type CreateComponentArg<T extends CType> = { type: T } & Exclude<
-  ComponentTypeMap[T]["data"],
-  "type"
->;
+export type CreateComponentArg<T extends CType = CType> = {
+  [K in T]: { type: K } & Omit<ComponentDataMap[K], "type">;
+}[T];
 
 export interface ComponentMeta {
   Factory: typeof ComponentFactory;

@@ -508,8 +508,10 @@ export class ComponentManager extends AugmentedGroup {
 
      * Returns all components with matching type.
      */
+  byType<T extends CType>(type: T): ComponentTypeMap[T][];
+  byType(type: string): Component3D[];
   byType(type: string) {
-    return this._componentsByType?.[type] || [];
+    return (this._componentsByType?.[type] || []) as Component3D[];
   }
 
   /**
@@ -613,13 +615,12 @@ export class ComponentManager extends AugmentedGroup {
   ): Promise<ComponentTypeMap[T]> {
     // try {
     // separate children from the data if present, do not mutate
-    let children = Object.values(data.children ?? {});
+    const componentData = { ...data } as ComponentTypeMap[T]["data"];
+    let children = Object.values(componentData.children ?? {});
 
-    data = { ...data };
+    delete componentData.children;
 
-    delete data.children;
-
-    let factory = await this._registry.getOrCreateFactory(data.type, {
+    let factory = await this._registry.getOrCreateFactory(componentData.type, {
       ...this._opts,
       container: this,
     } as any);
@@ -627,7 +628,7 @@ export class ComponentManager extends AugmentedGroup {
     if (opts?.abort?.aborted) return null;
 
     if (factory == null) {
-      console.warn("Factory is null for ", data.type);
+      console.warn("Factory is null for ", componentData.type);
 
       return null;
     }
@@ -635,12 +636,12 @@ export class ComponentManager extends AugmentedGroup {
     opts = { ...opts };
 
     if (opts.parent == null) {
-      if (data.parentId) {
+      if (componentData.parentId) {
         //
-        opts.parent = this.byInternalId(data.parentId);
+        opts.parent = this.byInternalId(componentData.parentId);
 
         if (opts.parent == null) {
-          throw new Error("Can't find parent " + data.parentId);
+          throw new Error("Can't find parent " + componentData.parentId);
         }
       } else {
         //
@@ -650,14 +651,14 @@ export class ComponentManager extends AugmentedGroup {
       //
       if (opts.parent instanceof Component3D) {
         //
-        data.parentId = opts.parent.data.id;
+        componentData.parentId = opts.parent.data.id;
       }
     }
 
     const instance: Component3D = await this._timeout(
-      factory.onAddInstance(data, opts),
+      factory.onAddInstance(componentData, opts),
       120000,
-      "Timeout creating component " + data.type + " " + data.url,
+      "Timeout creating component " + componentData.type + " " + componentData.url,
     );
 
     //const instance: Component3D = await factory.onAddInstance(data, opts);
@@ -682,13 +683,13 @@ export class ComponentManager extends AugmentedGroup {
 
     this._components.push(instance);
 
-    this._componentsById[data.id] = instance;
+    this._componentsById[componentData.id] = instance;
 
-    this._updateComponentScriptId(instance, data.script?.identifier, null);
+    this._updateComponentScriptId(instance, componentData.script?.identifier, null);
 
-    this._updateComponentTag(instance, data.script?.tag, null);
+    this._updateComponentTag(instance, componentData.script?.tag, null);
 
-    const componentType = data?.type;
+    const componentType = componentData?.type;
 
     if (componentType) {
       this._componentsByType[componentType] ??= [];
