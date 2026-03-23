@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "target": "ES2022",
-    "lib": ["esnext"],
+    "lib": ["dom", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -17,7 +17,8 @@
   },
   "include": [
     "src/**/*.js",
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "examples/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
