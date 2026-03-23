@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Football Demo",
-  description: "1v1 Football Demo",
+  description: "1v1 football example built with AWE and Next.js.",
 };
 
 export default function RootLayout({

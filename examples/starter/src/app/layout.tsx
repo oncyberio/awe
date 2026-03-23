@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AWE Game",
-  description: "AWE Game",
+  title: "AWE Starter",
+  description:
+    "Starter example for building a 3D game with AWE, Next.js, and the embedded Studio editor.",
 };
 
 export default function RootLayout({

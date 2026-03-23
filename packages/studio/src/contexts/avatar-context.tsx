@@ -4,6 +4,7 @@ import { getMaxFileSizeBytes } from "../utils/file-size";
 import { OptimizerServices } from "../utils/uploader/optimizer";
 import { ClientAvatarService } from "../services/client-avatar-service";
 import { uploadFile } from "../utils/uploader";
+import { DEFAULT_AVATAR_IMAGE } from "../utils/constants";
 
 type Avatar = {
   id: string;
@@ -65,7 +66,7 @@ export function AvatarProvider({ children }) {
           name: avatar.name,
           glb: avatar.url,
           glbCompressed: avatar.urlCompressed || undefined,
-          image: avatar.image || "/public/summer.png",
+          image: avatar.image || DEFAULT_AVATAR_IMAGE,
           pos: index,
           fileHash: avatar.fileHash,
           createdAt: avatar.createdAt,
@@ -146,7 +147,7 @@ export function AvatarProvider({ children }) {
 
     let url, urlCompressed;
 
-    let image = "/public/summer.png";
+    let image = DEFAULT_AVATAR_IMAGE;
 
     if (!response) {
       //

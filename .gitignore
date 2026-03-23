@@ -68,6 +68,7 @@ server/.env
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+!examples/*/next-env.d.ts
 
 
 ##

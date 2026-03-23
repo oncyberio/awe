@@ -7,6 +7,6 @@ const GameScene = dynamic(
   { ssr: false }
 );
 
-export default function SampleGamePage() {
+export default function AuthMultiplayerPage() {
   return <GameScene />;
 }

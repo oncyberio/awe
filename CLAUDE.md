@@ -13,4 +13,6 @@ All files in this mono repo MUST use **kebab-case** naming (eg `editor-events.ts
 
 # Examples
 
-Game examples live in /examples. Use these as reference when building games with the engine.
+Game examples live in `/examples`. Use them as reference when building games with the engine.
+
+If you are working in a scaffolded repo and `/examples` is not present locally, look up the examples in the scaffold origin repository at `https://github.com/oncyberio/awe`, using the matching path under `/examples`.

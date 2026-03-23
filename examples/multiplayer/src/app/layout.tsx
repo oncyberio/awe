@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AWE Game",
-  description: "AWE Game",
+  title: "AWE Multiplayer Example",
+  description:
+    "Realtime multiplayer platformer example built with AWE, Colyseus, and Next.js.",
 };
 
 export default function RootLayout({

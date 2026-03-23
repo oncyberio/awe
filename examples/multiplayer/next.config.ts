@@ -1,23 +1,18 @@
-/** @type {import('next').NextConfig} */
+import type { NextConfig } from "next";
 
-const path = require("path");
+const compiler: NextConfig["compiler"] =
+  process.env.NODE_ENV === "production"
+    ? {
+        removeConsole: {
+          exclude: ["error", "warn"],
+        },
+      }
+    : undefined;
 
-let removeConsoleConf = {};
-
-if (process.env.NODE_ENV === "production") {
-  removeConsoleConf = {
-    removeConsole: {
-      exclude: ["error", "warn"],
-    },
-  };
-}
-
-const nextConfig = {
+const nextConfig: NextConfig = {
   transpilePackages: ["@oncyberio/engine", "@oncyberio/engine-edit"],
   serverExternalPackages: ["draco3dgltf", "sharp"],
-  compiler: {
-    ...removeConsoleConf,
-  },
+  compiler,
 };
 
-module.exports = nextConfig;
+export default nextConfig;

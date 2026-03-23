@@ -19,8 +19,17 @@ function runCli(
   cwd: string,
   env?: Record<string, string>,
 ): { stdout: string; exitCode: number } {
+  return runCliEntry(CLI_PATH, args, cwd, env);
+}
+
+function runCliEntry(
+  entryPath: string,
+  args: string,
+  cwd: string,
+  env?: Record<string, string>,
+): { stdout: string; exitCode: number } {
   try {
-    const stdout = execSync(`npx tsx ${CLI_PATH} ${args}`, {
+    const stdout = execSync(`npx tsx "${entryPath}" ${args}`, {
       cwd,
       stdio: "pipe",
       env: {
@@ -66,13 +75,17 @@ describe("CLI integration", { timeout: 30000 }, () => {
     expect(fs.existsSync(projectDir)).toBe(true);
     expect(fs.existsSync(path.join(projectDir, "package.json"))).toBe(true);
     expect(fs.existsSync(path.join(projectDir, "pnpm-workspace.yaml"))).toBe(true);
-    expect(fs.existsSync(path.join(projectDir, "apps/game/package.json"))).toBe(true);
+    expect(fs.existsSync(path.join(projectDir, "apps/test-project/package.json"))).toBe(true);
   });
 
-  it("sets project name in apps/game/package.json and root package.json", () => {
+  it("sets project name in apps/<project-name>/package.json and root package.json", () => {
     runCli("my-cool-game --template starter --use-pnpm --skip-install --skip-git", tmpDir);
 
-    const gamePkgPath = path.join(tmpDir, "my-cool-game", "apps/game/package.json");
+    const gamePkgPath = path.join(
+      tmpDir,
+      "my-cool-game",
+      "apps/my-cool-game/package.json",
+    );
     const gamePkg = JSON.parse(fs.readFileSync(gamePkgPath, "utf-8"));
     expect(gamePkg.name).toBe("my-cool-game");
 
@@ -88,7 +101,10 @@ describe("CLI integration", { timeout: 30000 }, () => {
     expect(fs.existsSync(projectDir)).toBe(true);
 
     const gamePkg = JSON.parse(
-      fs.readFileSync(path.join(projectDir, "apps/game/package.json"), "utf-8"),
+      fs.readFileSync(
+        path.join(projectDir, "apps/my-cool-game/package.json"),
+        "utf-8",
+      ),
     );
     expect(gamePkg.name).toBe("my-cool-game");
   });
@@ -100,6 +116,21 @@ describe("CLI integration", { timeout: 30000 }, () => {
     expect(fs.existsSync(path.join(projectDir, "examples"))).toBe(false);
     expect(fs.existsSync(path.join(projectDir, "docs"))).toBe(false);
     expect(fs.existsSync(path.join(projectDir, "packages/create-oncyber-app"))).toBe(false);
+  });
+
+  it("keeps the root CLAUDE.md unchanged in scaffolded projects", () => {
+    runCli("claude-guidance --template starter --use-pnpm --skip-install --skip-git", tmpDir);
+
+    const claudeMd = fs.readFileSync(
+      path.join(tmpDir, "claude-guidance", "CLAUDE.md"),
+      "utf-8",
+    );
+
+    expect(claudeMd).not.toContain("/apps/claude-guidance");
+    expect(claudeMd).not.toContain("/examples/starter");
+    expect(claudeMd).not.toContain("workspace packages in `/packages`");
+    expect(claudeMd).not.toContain("does not keep an `/examples` directory");
+    expect(claudeMd).toContain("# Examples");
   });
 
   it("removes template scripts from root package.json", () => {
@@ -239,6 +270,17 @@ describe("CLI integration", { timeout: 30000 }, () => {
     expect(stdout.trim()).toMatch(/^\d+\.\d+\.\d+$/);
   });
 
+  it("shows help when invoked through a symlinked entrypoint", () => {
+    const symlinkPath = path.join(tmpDir, "create-oncyber-app.ts");
+    fs.symlinkSync(CLI_PATH, symlinkPath);
+
+    const { stdout, exitCode } = runCliEntry(symlinkPath, "--help", tmpDir);
+
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("Usage:");
+    expect(stdout).toContain("create-oncyber-app");
+  });
+
   it("includes packages/ directory in scaffolded project", () => {
     runCli("packages-test --template starter --use-pnpm --skip-install --skip-git", tmpDir);
 
@@ -247,12 +289,12 @@ describe("CLI integration", { timeout: 30000 }, () => {
     expect(fs.existsSync(path.join(projectDir, "packages/studio"))).toBe(true);
   });
 
-  it("keeps workspace:* dependencies in apps/game (monorepo)", () => {
+  it("keeps workspace:* dependencies in apps/<project-name> (monorepo)", () => {
     runCli("workspace-deps --template starter --use-pnpm --skip-install --skip-git", tmpDir);
 
     const gamePkg = JSON.parse(
       fs.readFileSync(
-        path.join(tmpDir, "workspace-deps", "apps/game/package.json"),
+        path.join(tmpDir, "workspace-deps", "apps/workspace-deps/package.json"),
         "utf-8",
       ),
     );
@@ -270,15 +312,15 @@ describe("CLI integration", { timeout: 30000 }, () => {
     expect(stdout).toContain("Success!");
 
     const projectDir = path.join(tmpDir, "mp-test");
-    expect(fs.existsSync(path.join(projectDir, "apps/game/package.json"))).toBe(true);
+    expect(fs.existsSync(path.join(projectDir, "apps/mp-test/package.json"))).toBe(true);
 
     // Multiplayer template should have server/ and shared/ dirs
-    expect(fs.existsSync(path.join(projectDir, "apps/game/server"))).toBe(true);
-    expect(fs.existsSync(path.join(projectDir, "apps/game/shared"))).toBe(true);
+    expect(fs.existsSync(path.join(projectDir, "apps/mp-test/server"))).toBe(true);
+    expect(fs.existsSync(path.join(projectDir, "apps/mp-test/shared"))).toBe(true);
 
     // Should have colyseus dependency
     const gamePkg = JSON.parse(
-      fs.readFileSync(path.join(projectDir, "apps/game/package.json"), "utf-8"),
+      fs.readFileSync(path.join(projectDir, "apps/mp-test/package.json"), "utf-8"),
     );
     expect(gamePkg.name).toBe("mp-test");
     expect(gamePkg.dependencies?.["colyseus"]).toBeDefined();
@@ -485,7 +527,7 @@ describe.skipIf(!process.env.TEST_REAL_CLONE)(
       // Monorepo structure present
       expect(fs.existsSync(path.join(projectDir, "package.json"))).toBe(true);
       expect(fs.existsSync(path.join(projectDir, "pnpm-workspace.yaml"))).toBe(true);
-      expect(fs.existsSync(path.join(projectDir, "apps/game/package.json"))).toBe(true);
+      expect(fs.existsSync(path.join(projectDir, "apps/real-clone-test/package.json"))).toBe(true);
       expect(fs.existsSync(path.join(projectDir, "packages/engine"))).toBe(true);
       expect(fs.existsSync(path.join(projectDir, "packages/studio"))).toBe(true);
 
@@ -499,7 +541,10 @@ describe.skipIf(!process.env.TEST_REAL_CLONE)(
 
       // Project name applied
       const gamePkg = JSON.parse(
-        fs.readFileSync(path.join(projectDir, "apps/game/package.json"), "utf-8"),
+        fs.readFileSync(
+          path.join(projectDir, "apps/real-clone-test/package.json"),
+          "utf-8",
+        ),
       );
       expect(gamePkg.name).toBe("real-clone-test");
 

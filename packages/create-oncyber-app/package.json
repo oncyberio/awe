@@ -1,6 +1,6 @@
 {
   "name": "create-oncyber-app",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Create a new oncyber game project from the template",
   "bin": {
     "create-oncyber-app": "./dist/index.js"

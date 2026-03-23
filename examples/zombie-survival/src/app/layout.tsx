@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AWE Game",
-  description: "AWE Game",
+  title: "Zombie Survival",
+  description:
+    "Wave-based zombie survival example with shooting, navmesh pathfinding, and Studio scene editing.",
 };
 
 export default function RootLayout({
