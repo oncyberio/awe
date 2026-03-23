@@ -1,6 +1,6 @@
 import { createInputs } from "../../src/input/input-map";
 import { Custom, Keyboard } from "../../src/input/bindings";
-import { sharedControlState } from "../../src/input/control-state";
+import { sharedControlState } from "../../src/input/shared-control-state";
 import {
   emitInputFrame,
   pressCustomButton,

@@ -7,30 +7,22 @@
  *
  * Architecture:
  * - Each device has its own state class (KeyboardState, MouseState, etc.)
- * - ControlStateManager composes all device states and handles frame updates
+ * - ControlStateManager composes all device states and exposes imperative frame hooks
  * - Capture backends feed raw device state into these stores
- * - On INPUT_PROCESS event: lets the active backend update browser/platform state,
- *   then captures frame state for all devices
+ * - The host runtime decides when to call `processInputFrame()`,
+ *   `beginFixedUpdates()`, and `endFixedUpdates()`
  * - Emits INPUT_STATE_READY locally when state is ready for consumers to sample
  *
  * Usage:
- * - Direct access via shared singletons: Devices, sharedControlState
- * - Or create your own ControlStateManager for isolated input handling
- * - Subscribe to INPUT_STATE_READY via sharedControlState.on(ControlStateEvents.INPUT_STATE_READY, ...)
+ * - Create a ControlStateManager for isolated input handling
+ * - Subscribe to INPUT_STATE_READY via `controlState.on(...)`
+ * - Use `shared-control-state.ts` when you want browser/engine wiring
  *
  * @module control-state
  */
 
-import emitter from "../internal/engine-emitter";
-import { EngineEvents } from "../internal/engine-events";
 import Augmented from "../internal/events/augmented";
-import { CANVAS, FRONT_END } from "../internal/constants";
-import {
-  BrowserInputCapture,
-  type ControlStateCaptureBackend,
-  type ControlStateCaptureMode,
-  type BrowserInputCaptureOptions,
-} from "./input-capture";
+import type { ControlStateCaptureBackend } from "./input-capture";
 
 /**
  * Gamepad button mapping (Standard Gamepad layout).
@@ -90,15 +82,8 @@ export interface ControlStateEventListeners {
 }
 
 export interface ControlStateManagerOptions {
-  /**
-   * Capture backend selection.
-   * - `browser`: uses browser input capture with separate mouse/touch channels
-   * - `none`: no capture backend, caller drives state imperatively
-   * - custom backend object: attach your own source
-   */
-  capture?: ControlStateCaptureMode | ControlStateCaptureBackend;
-  /** Browser capture options, used when `capture: "browser"` */
-  browserCapture?: BrowserInputCaptureOptions;
+  /** Optional capture backend. Omit to drive device state imperatively. */
+  capture?: ControlStateCaptureBackend | null;
 }
 
 // ============================================================================
@@ -824,7 +809,7 @@ export class ControlStateManager {
     this.touch = new TouchState();
     this.custom = new CustomState();
 
-    this._captureBackend = this._resolveCaptureBackend(options);
+    this._captureBackend = options.capture ?? null;
     this.active = true;
   }
 
@@ -877,9 +862,7 @@ export class ControlStateManager {
 
     if (val) {
       this._captureBackend?.attach(this);
-      this._addFrameListeners();
     } else {
-      this._removeFrameListeners();
       this._captureBackend?.detach();
     }
   }
@@ -927,34 +910,6 @@ export class ControlStateManager {
     this._onInputProcess(delta, absTimer);
   }
 
-  private _resolveCaptureBackend(
-    options: ControlStateManagerOptions,
-  ): ControlStateCaptureBackend | null {
-    const capture = options.capture ?? (FRONT_END ? "browser" : "none");
-
-    if (capture === "none") {
-      return null;
-    }
-
-    if (capture === "browser") {
-      return new BrowserInputCapture(options.browserCapture);
-    }
-
-    return capture;
-  }
-
-  private _addFrameListeners(): void {
-    emitter.on(EngineEvents.INPUT_PROCESS, this._onInputProcess);
-    emitter.on(EngineEvents.BEFORE_FIXED_UPDATES, this._onBeforeFixedUpdates);
-    emitter.on(EngineEvents.AFTER_PHYSICS_UPDATE, this._onAfterPhysicsUpdate);
-  }
-
-  private _removeFrameListeners(): void {
-    emitter.off(EngineEvents.INPUT_PROCESS, this._onInputProcess);
-    emitter.off(EngineEvents.BEFORE_FIXED_UPDATES, this._onBeforeFixedUpdates);
-    emitter.off(EngineEvents.AFTER_PHYSICS_UPDATE, this._onAfterPhysicsUpdate);
-  }
-
   private _onBeforeFixedUpdates = (iterationCount: number): void => {
     if (!this._active || this._disposed) return;
     this._expectedFixedUpdates = Math.max(1, Math.floor(iterationCount));
@@ -967,6 +922,7 @@ export class ControlStateManager {
   };
 
   private _onInputProcess = (_delta: number, _absTimer: number): void => {
+    if (!this._active || this._disposed) return;
     this._frameCounter++;
     this._expectedFixedUpdates = 1;
 
@@ -981,31 +937,3 @@ export class ControlStateManager {
     this._emitter.emit(ControlStateEvents.INPUT_STATE_READY, this);
   };
 }
-
-// ============================================================================
-// Singleton
-// ============================================================================
-
-/**
- * Shared control state instance.
- * Defaults to the browser capture backend in browser environments and to manual
- * wiring outside the browser.
- */
-export const sharedControlState = new ControlStateManager({
-  capture: FRONT_END ? "browser" : "none",
-  browserCapture: {
-    target: () => CANVAS,
-    keyboardTarget: () => window,
-  },
-});
-
-/**
- * Device state singletons grouped for convenient access.
- */
-export const Devices = {
-  keyboard: sharedControlState.keyboard,
-  mouse: sharedControlState.mouse,
-  gamepad: sharedControlState.gamepad,
-  touch: sharedControlState.touch,
-  custom: sharedControlState.custom,
-};

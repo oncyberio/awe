@@ -36,9 +36,6 @@ export {
   GamepadState,
   TouchState,
   CustomState,
-  // Singletons
-  sharedControlState,
-  Devices,
 } from "./control-state";
 export type {
   DeviceType,
@@ -47,6 +44,11 @@ export type {
   ControlStateManagerOptions,
 } from "./control-state";
 export { GamepadButtons, GamepadAxes } from "./control-state";
+export {
+  SharedControlStateManager,
+  sharedControlState,
+} from "./shared-control-state";
+export type { SharedControlStateOptions } from "./shared-control-state";
 export { BrowserInputCapture } from "./input-capture";
 export type {
   ControlStateCaptureBackend,

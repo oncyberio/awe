@@ -8,11 +8,8 @@ import type { InputAction } from "./input-action";
 import { createInputAction } from "./input-action";
 import { readInputsSnapshot, type InputSnapshot } from "./input-snapshot";
 import { InputValue } from "./input-value";
-import {
-  ControlStateManager,
-  ControlStateEvents,
-  sharedControlState,
-} from "./control-state";
+import { ControlStateManager, ControlStateEvents } from "./control-state";
+import { sharedControlState } from "./shared-control-state";
 import type { Vector2 } from "./bindings";
 import type {
   ButtonInputConfig,

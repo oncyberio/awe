@@ -1,7 +1,5 @@
-import {
-  ControlStateManager,
-  sharedControlState,
-} from "../../src/input/control-state";
+import { ControlStateManager } from "../../src/input/control-state";
+import { sharedControlState } from "../../src/input/shared-control-state";
 
 export function emitInputFrame(
   iterationCount = 1,

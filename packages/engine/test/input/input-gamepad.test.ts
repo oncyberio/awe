@@ -1,5 +1,6 @@
 import { createInputs } from "../../src/input/input-map";
 import { Gamepad } from "../../src/input/bindings";
+import { BrowserInputCapture } from "../../src/input/input-capture";
 import { Interactions } from "../../src/input/interactions";
 import { ControlStateManager } from "../../src/input/control-state";
 import { emitInputFrame, setupNavigatorMock } from "./input-test-utils";
@@ -13,7 +14,7 @@ describe("Inputs gamepad frame safety (buttons and sticks)", () => {
 
   beforeEach(() => {
     controlState = new ControlStateManager({
-      capture: "browser",
+      capture: new BrowserInputCapture(),
     });
   });
 
