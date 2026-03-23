@@ -4,15 +4,21 @@
   "private": true,
   "type": "module",
   "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./space": "./src/space/index.ts"
+  },
   "scripts": {
     "check": "tsc --noEmit",
     "test": "pnpm exec vitest run -c vitest.config.ts",
     "test:watch": "pnpm exec vitest -c vitest.config.ts"
   },
   "dependencies": {
+    "@dimforge/rapier3d-compat": "0.11.2",
     "@gltf-transform/core": "4.0.0-alpha.7",
     "@gltf-transform/extensions": "4.0.0-alpha.7",
     "@gltf-transform/functions": "4.0.0-alpha.7",
+    "@oncyberio/engine": "workspace:*",
     "@pinata/sdk": "^2.1.0",
     "draco3dgltf": "^1.5.6",
     "meshoptimizer": "^0.19.0",
@@ -22,6 +28,7 @@
     "ndarray-pixels": "^5.0.1",
     "p-limit": "^3.1.0",
     "sharp": "^0.34.5",
+    "three": "^0.170.0",
     "tmp": "^0.2.1",
     "basisu": "^1.16.3"
   },

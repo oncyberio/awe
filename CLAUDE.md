@@ -9,6 +9,7 @@ All files in this mono repo MUST use **kebab-case** naming (eg `editor-events.ts
 # Skills
 
 - `/engine` — oncyber engine API and usage patterns. Use before working on game code.
+- `/run-space` — headless engine programs via `pnpm run-space`. Use when exact spatial compute, scene inspection, smoke testing, or procedural generation would help.
 - `/game-prd` — create a game spec / PRD before implementation. Use when planning a new game or scoping a game idea.
 
 # Examples

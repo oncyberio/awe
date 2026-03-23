@@ -42,9 +42,11 @@ export function copyFixture(sourcePath: string, destinationPath: string): void {
 export function runCli(
   args: string[],
   cwd = repoRoot,
+  input?: string,
 ): { stdout: string; exitCode: number } {
   const result = spawnSync(tsxPath, [cliPath, ...args], {
     cwd,
+    input,
     stdio: "pipe",
     encoding: "utf-8",
     env: {
