@@ -1,7 +1,7 @@
 import { createInputs } from "../../src/input/input-map";
 import { Composite, Custom, Keyboard, Mouse } from "../../src/input/bindings";
 import { Interactions } from "../../src/input/interactions";
-import { sharedControlState } from "../../src/input/control-state";
+import { sharedControlState } from "../../src/input/shared-control-state";
 import {
   emitInputFrame,
   pressKey,

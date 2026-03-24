@@ -18,9 +18,32 @@ Edit `public/data/static-scene.json` directly for all scene CRUD operations (add
 
 For adding assets (models, avatars, animations, media), see [references/assets-guide.md](references/assets-guide.md).
 
+### Exact Spatial Compute
+
+Some scene edits are simple enough to do directly in `static-scene.json`.
+
+Consider the `/run-space` skill when code-driven spatial or headless execution would materially help, especially for tasks like:
+
+- placing one object relative to another
+- measuring exact bounds, dimensions, or transforms
+- checking whether a component exists in a real scene snapshot
+- computing coordinates before patching `static-scene.json`
+- smoke-testing what the headless runtime actually loads
+- build-time or procedural scene generation
+
+Keep `/engine` for scene structure, component APIs, gameplay logic, and normal scene edits. Reach for `/run-space` when a short headless program is the clearer or safer way to answer the task.
+
 ### static-scene.json Overview
 
 The scene file maps component IDs to component data. Each component has `id`, `name`, `type`, `position`, `rotation`, `scale`, and type-specific properties at the root level. Use `script.identifier` / `script.tag` for runtime lookups via `byId()` / `byTag()`.
+
+### Model Notes
+
+For `model` components, keep these runtime semantics in mind:
+
+- `center` is explicit opt-in. Default model behavior preserves the asset's authored pivot.
+- `fixedTransform` is a hint that the model will not move at runtime. This can enable static-instance optimizations for instanced models and is a good fit for fixed scene dressing.
+- Treat `fixedTransform` as a runtime hint, not a placement tool. In edit mode, models should still be movable.
 
 **See:** [references/examples/static-scene-minimal.json](references/examples/static-scene-minimal.json) for a working minimal scene.
 

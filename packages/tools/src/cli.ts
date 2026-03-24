@@ -24,6 +24,7 @@ Commands:
   upload-asset <source>     Upload a local asset to the project
   validate-scene            Validate the project's static-scene.json
   inspect-gltf <path>       Inspect a GLTF/GLB file metadata
+  run-space                 Run a headless space program against a scene snapshot
 
 Global options:
   --project-dir=PATH        Project directory (default: cwd)
@@ -46,7 +47,12 @@ add-avatar options:
   --name=NAME               Override avatar name
 
 upload-asset options:
-  --name=NAME               Override asset name`);
+  --name=NAME               Override asset name
+
+run-space options:
+  --scene=PATH              Path to the scene snapshot JSON
+  --file=PATH               Path to a TS module exporting a space program
+  --stdin                   Read the space program module source from stdin`);
 }
 
 function parseArgs(argv: string[]) {
@@ -74,7 +80,45 @@ function parseArgs(argv: string[]) {
 }
 
 function outputJson(data: unknown) {
-  console.log(JSON.stringify(data, null, 2));
+  const seen = new WeakSet<object>();
+
+  console.log(
+    JSON.stringify(
+      data === undefined ? null : data,
+      (_key, value) => {
+        if (typeof value === "bigint") {
+          return value.toString();
+        }
+
+        if (value instanceof Map) {
+          return Object.fromEntries(value);
+        }
+
+        if (value instanceof Set) {
+          return [...value];
+        }
+
+        if (value instanceof Error) {
+          return {
+            message: value.message,
+            name: value.name,
+            stack: value.stack,
+          };
+        }
+
+        if (value && typeof value === "object") {
+          if (seen.has(value)) {
+            return "[Circular]";
+          }
+
+          seen.add(value);
+        }
+
+        return value;
+      },
+      2,
+    ),
+  );
 }
 
 function fail(message: string): never {
@@ -82,10 +126,21 @@ function fail(message: string): never {
   process.exit(1);
 }
 
+async function readStdin(): Promise<string> {
+  const chunks: Buffer[] = [];
+
+  for await (const chunk of process.stdin) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  }
+
+  return Buffer.concat(chunks).toString("utf-8");
+}
+
 async function main() {
   const { positional, flags } = parseArgs(process.argv.slice(2));
   const command = positional[0];
-  const projectDir = resolve((flags["project-dir"] as string) || process.cwd());
+  const projectDirFlag = flags["project-dir"] as string | undefined;
+  const projectDir = resolve(projectDirFlag || process.cwd());
 
   if (!command || flags["help"] === true) {
     printUsage();
@@ -298,6 +353,36 @@ async function main() {
       try {
         const result = await inspectGltf(filePath);
         outputJson(result);
+      } catch (err) {
+        fail(err instanceof Error ? err.message : String(err));
+      }
+      break;
+    }
+
+    case "run-space": {
+      const scenePath = flags["scene"] as string | undefined;
+      const programPath = flags["file"] as string | undefined;
+      const useStdin = flags["stdin"] === true;
+
+      if (!scenePath) {
+        fail("Missing required option: --scene=<path>");
+      }
+
+      if ((programPath ? 1 : 0) + (useStdin ? 1 : 0) !== 1) {
+        fail("Provide exactly one program input: --file=<path> or --stdin");
+      }
+
+      try {
+        const { runSpaceProgram } = await import("./space/run-space");
+        const result = await runSpaceProgram({
+          programPath,
+          projectDir: projectDirFlag ? projectDir : undefined,
+          scenePath,
+          sourceText: useStdin ? await readStdin() : undefined,
+        });
+
+        outputJson(result);
+        process.exit(0);
       } catch (err) {
         fail(err instanceof Error ? err.message : String(err));
       }

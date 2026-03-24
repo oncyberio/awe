@@ -1,9 +1,7 @@
 import { createInputs } from "../../src/input/input-map";
 import { Mouse } from "../../src/input/bindings";
-import {
-  ControlStateManager,
-  sharedControlState,
-} from "../../src/input/control-state";
+import { ControlStateManager } from "../../src/input/control-state";
+import { sharedControlState } from "../../src/input/shared-control-state";
 import {
   emitInputFrame,
   moveMouse,

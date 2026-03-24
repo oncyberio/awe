@@ -1,20 +1,25 @@
 import { createInputs } from "../../src/input/input-map";
 import { Gamepad } from "../../src/input/bindings";
+import { BrowserInputCapture } from "../../src/input/input-capture";
 import { Interactions } from "../../src/input/interactions";
-import { sharedControlState } from "../../src/input/control-state";
+import { ControlStateManager } from "../../src/input/control-state";
 import { emitInputFrame, setupNavigatorMock } from "./input-test-utils";
 
 describe("Inputs gamepad frame safety (buttons and sticks)", () => {
+  let controlState!: ControlStateManager;
+
   beforeAll(() => {
     setupNavigatorMock();
   });
 
   beforeEach(() => {
-    sharedControlState.reset();
+    controlState = new ControlStateManager({
+      capture: new BrowserInputCapture(),
+    });
   });
 
   afterEach(() => {
-    sharedControlState.reset();
+    controlState.dispose();
     // Reset mock
     (globalThis as any).navigator.getGamepads = () => [];
   });
@@ -28,7 +33,7 @@ describe("Inputs gamepad frame safety (buttons and sticks)", () => {
         },
       } as const;
 
-    const inputs = createInputs(config);
+    const inputs = createInputs(config, { controlState });
     const jump = inputs.Jump;
 
     let performedCount = 0;
@@ -49,7 +54,7 @@ describe("Inputs gamepad frame safety (buttons and sticks)", () => {
 
     try {
       // Sample with A pressed
-      emitInputFrame(2);
+      emitInputFrame(2, controlState);
 
       // Multiple fixed updates
       inputs.update(1 / 60);
@@ -72,7 +77,7 @@ describe("Inputs gamepad frame safety (buttons and sticks)", () => {
         },
       } as const;
 
-    const inputs = createInputs(config);
+    const inputs = createInputs(config, { controlState });
     const fire = inputs.Fire;
 
     let performedCount = 0;
@@ -97,14 +102,14 @@ describe("Inputs gamepad frame safety (buttons and sticks)", () => {
       (globalThis as any).navigator.getGamepads = () => [
         createGamepadMock(true),
       ];
-      emitInputFrame();
+      emitInputFrame(1, controlState);
       inputs.update(1 / 60);
 
       // Release A
       (globalThis as any).navigator.getGamepads = () => [
         createGamepadMock(false),
       ];
-      emitInputFrame(2);
+      emitInputFrame(2, controlState);
 
       // Multiple fixed updates after release
       inputs.update(1 / 60);
@@ -126,7 +131,7 @@ describe("Inputs gamepad frame safety (buttons and sticks)", () => {
         },
       } as const;
 
-    const inputs = createInputs(config);
+    const inputs = createInputs(config, { controlState });
     const look = inputs.Look;
 
     const createGamepadMock = (rx: number, ry: number) => ({
@@ -143,7 +148,7 @@ describe("Inputs gamepad frame safety (buttons and sticks)", () => {
       (globalThis as any).navigator.getGamepads = () => [
         createGamepadMock(0.5, -0.3),
       ];
-      emitInputFrame(3);
+      emitInputFrame(3, controlState);
 
       const values: Array<{ x: number; y: number }> = [];
       for (let i = 0; i < 3; i++) {

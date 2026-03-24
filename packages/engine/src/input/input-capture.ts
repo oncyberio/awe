@@ -3,11 +3,12 @@ import type { ControlStateManager } from "./control-state";
 export interface ControlStateCaptureBackend {
   attach(state: ControlStateManager): void;
   detach(): void;
+  processInputFrame?(delta: number, absTimer: number): void;
 }
 
-export type ControlStateCaptureMode = "dom" | "none";
+export type ControlStateCaptureMode = "browser" | "none";
 
-export interface DomInputCaptureOptions {
+export interface BrowserInputCaptureOptions {
   /** Pointer/touch target. Defaults to no pointer capture if omitted. */
   target?: EventTarget | null | (() => EventTarget | null);
   /** Keyboard target. Defaults to `window` when available. */
@@ -35,14 +36,15 @@ function getDefaultKeyboardTarget(): EventTarget | null {
 }
 
 /**
- * Fresh DOM capture path for the input system. Mouse and touch stay separate
- * and feed the control-state stores directly.
+ * Browser capture path for the input system.
+ * Mouse and touch stay separate, keyboard remains event-driven, and gamepad is
+ * polled once per input frame.
  */
-export class DomInputCapture implements ControlStateCaptureBackend {
-  private readonly _target: DomInputCaptureOptions["target"];
-  private readonly _keyboardTarget: DomInputCaptureOptions["keyboardTarget"];
+export class BrowserInputCapture implements ControlStateCaptureBackend {
+  private readonly _target: BrowserInputCaptureOptions["target"];
+  private readonly _keyboardTarget: BrowserInputCaptureOptions["keyboardTarget"];
   private readonly _canHandleKeyEvent: NonNullable<
-    DomInputCaptureOptions["canHandleKeyEvent"]
+    BrowserInputCaptureOptions["canHandleKeyEvent"]
   >;
   private readonly _preventTouchDefaults: boolean;
 
@@ -51,7 +53,7 @@ export class DomInputCapture implements ControlStateCaptureBackend {
   private _resolvedKeyboardTarget: EventTarget | null = null;
   private _resolvedMouseUpTarget: EventTarget | null = null;
 
-  constructor(options: DomInputCaptureOptions = {}) {
+  constructor(options: BrowserInputCaptureOptions = {}) {
     this._target = options.target;
     this._keyboardTarget = options.keyboardTarget;
     this._canHandleKeyEvent = options.canHandleKeyEvent ?? (() => true);
@@ -105,6 +107,39 @@ export class DomInputCapture implements ControlStateCaptureBackend {
     this._resolvedKeyboardTarget = null;
     this._resolvedMouseUpTarget = null;
     this._state = null;
+  }
+
+  processInputFrame(): void {
+    const state = this._state;
+    if (!state) return;
+
+    const gamepads = globalThis.navigator?.getGamepads?.() ?? [];
+    let gamepad: Gamepad | null = null;
+
+    for (const candidate of gamepads) {
+      if (candidate && candidate.connected) {
+        gamepad = candidate;
+        break;
+      }
+    }
+
+    if (!gamepad) {
+      state.gamepad.setSnapshot(null);
+      return;
+    }
+
+    const buttonsDown: number[] = [];
+    for (let i = 0; i < gamepad.buttons.length; i++) {
+      if (gamepad.buttons[i]?.pressed) {
+        buttonsDown.push(i);
+      }
+    }
+
+    state.gamepad.setSnapshot({
+      index: gamepad.index,
+      buttonsDown,
+      axes: gamepad.axes,
+    });
   }
 
   private _onKeyDown = (event: KeyboardEvent): void => {

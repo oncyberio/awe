@@ -7,29 +7,22 @@
  *
  * Architecture:
  * - Each device has its own state class (KeyboardState, MouseState, etc.)
- * - ControlStateManager composes all device states and handles frame updates
+ * - ControlStateManager composes all device states and exposes imperative frame hooks
  * - Capture backends feed raw device state into these stores
- * - On INPUT_PROCESS event: polls gamepad, captures frame state for all devices
+ * - The host runtime decides when to call `processInputFrame()`,
+ *   `beginFixedUpdates()`, and `endFixedUpdates()`
  * - Emits INPUT_STATE_READY locally when state is ready for consumers to sample
  *
  * Usage:
- * - Direct access via shared singletons: Devices, sharedControlState
- * - Or create your own ControlStateManager for isolated input handling
- * - Subscribe to INPUT_STATE_READY via sharedControlState.on(ControlStateEvents.INPUT_STATE_READY, ...)
+ * - Create a ControlStateManager for isolated input handling
+ * - Subscribe to INPUT_STATE_READY via `controlState.on(...)`
+ * - Use `shared-control-state.ts` when you want browser/engine wiring
  *
  * @module control-state
  */
 
-import emitter from "../internal/engine-emitter";
-import { EngineEvents } from "../internal/engine-events";
 import Augmented from "../internal/events/augmented";
-import { CANVAS, FRONT_END } from "../internal/constants";
-import {
-  DomInputCapture,
-  type ControlStateCaptureBackend,
-  type ControlStateCaptureMode,
-  type DomInputCaptureOptions,
-} from "./input-capture";
+import type { ControlStateCaptureBackend } from "./input-capture";
 
 /**
  * Gamepad button mapping (Standard Gamepad layout).
@@ -89,15 +82,8 @@ export interface ControlStateEventListeners {
 }
 
 export interface ControlStateManagerOptions {
-  /**
-   * Capture backend selection.
-   * - `dom`: uses fresh DOM capture with separate mouse/touch channels
-   * - `none`: no capture backend, caller drives state imperatively
-   * - custom backend object: attach your own source
-   */
-  capture?: ControlStateCaptureMode | ControlStateCaptureBackend;
-  /** DOM capture options, used when `capture: "dom"` */
-  domCapture?: DomInputCaptureOptions;
+  /** Optional capture backend. Omit to drive device state imperatively. */
+  capture?: ControlStateCaptureBackend | null;
 }
 
 // ============================================================================
@@ -331,13 +317,28 @@ export class MouseState {
 
 /**
  * Gamepad input state.
- * Polls gamepad API and tracks button/axis state.
+ * Tracks connected gamepad button/axis state.
  * Edge detection is computed at the InputAction level.
  */
 export class GamepadState {
+  private _active = false;
   private _index: number | null = null;
   private _buttonsDown = new Set<number>();
   private _axes: number[] = [0, 0, 0, 0];
+
+  /**
+   * Whether gamepad input is active
+   */
+  get active(): boolean {
+    return this._active;
+  }
+
+  set active(val: boolean) {
+    this._active = val;
+    if (!val) {
+      this.reset();
+    }
+  }
 
   /**
    * Whether a gamepad is connected
@@ -347,11 +348,10 @@ export class GamepadState {
   }
 
   /**
-   * Capture frame state. Call once in BEFORE_FIXED_UPDATES after update().
-   * No-op for gamepad (kept for interface consistency).
+   * Capture frame state. No-op for gamepad (kept for interface consistency).
    */
   sample(): void {
-    // No-op - gamepad state is polled in update()
+    // No-op - gamepad state is updated by the active capture backend
   }
 
   /**
@@ -371,35 +371,28 @@ export class GamepadState {
   }
 
   /**
-   * Update gamepad state - call once per frame (polls the gamepad API)
+   * Replace the current gamepad snapshot.
    */
-  update(): void {
-    const gamepads = navigator.getGamepads?.() ?? [];
-    let gamepad: Gamepad | null = null;
+  setSnapshot(snapshot: {
+    index: number;
+    buttonsDown: Iterable<number>;
+    axes?: ArrayLike<number>;
+  } | null): void {
+    if (!this._active) return;
 
-    for (const gp of gamepads) {
-      if (gp && gp.connected) {
-        gamepad = gp;
-        this._index = gp.index;
-        break;
-      }
-    }
-
-    if (!gamepad) {
-      this._index = null;
+    if (!snapshot) {
+      this.reset();
       return;
     }
 
+    this._index = snapshot.index;
     this._buttonsDown.clear();
-
-    for (let i = 0; i < gamepad.buttons.length; i++) {
-      if (gamepad.buttons[i]?.pressed) {
-        this._buttonsDown.add(i);
-      }
+    for (const button of snapshot.buttonsDown) {
+      this._buttonsDown.add(button);
     }
 
     for (let i = 0; i < 4; i++) {
-      this._axes[i] = gamepad.axes[i] ?? 0;
+      this._axes[i] = snapshot.axes?.[i] ?? 0;
     }
   }
 
@@ -407,6 +400,7 @@ export class GamepadState {
    * Reset all state
    */
   reset(): void {
+    this._index = null;
     this._buttonsDown.clear();
     this._axes = [0, 0, 0, 0];
   }
@@ -815,7 +809,7 @@ export class ControlStateManager {
     this.touch = new TouchState();
     this.custom = new CustomState();
 
-    this._captureBackend = this._resolveCaptureBackend(options);
+    this._captureBackend = options.capture ?? null;
     this.active = true;
   }
 
@@ -862,14 +856,13 @@ export class ControlStateManager {
 
     this.keyboard.active = val;
     this.mouse.active = val;
+    this.gamepad.active = val;
     this.touch.active = val;
     this.custom.active = val;
 
     if (val) {
       this._captureBackend?.attach(this);
-      this._addFrameListeners();
     } else {
-      this._removeFrameListeners();
       this._captureBackend?.detach();
     }
   }
@@ -917,34 +910,6 @@ export class ControlStateManager {
     this._onInputProcess(delta, absTimer);
   }
 
-  private _resolveCaptureBackend(
-    options: ControlStateManagerOptions,
-  ): ControlStateCaptureBackend | null {
-    const capture = options.capture ?? (FRONT_END ? "dom" : "none");
-
-    if (capture === "none") {
-      return null;
-    }
-
-    if (capture === "dom") {
-      return new DomInputCapture(options.domCapture);
-    }
-
-    return capture;
-  }
-
-  private _addFrameListeners(): void {
-    emitter.on(EngineEvents.INPUT_PROCESS, this._onInputProcess);
-    emitter.on(EngineEvents.BEFORE_FIXED_UPDATES, this._onBeforeFixedUpdates);
-    emitter.on(EngineEvents.AFTER_PHYSICS_UPDATE, this._onAfterPhysicsUpdate);
-  }
-
-  private _removeFrameListeners(): void {
-    emitter.off(EngineEvents.INPUT_PROCESS, this._onInputProcess);
-    emitter.off(EngineEvents.BEFORE_FIXED_UPDATES, this._onBeforeFixedUpdates);
-    emitter.off(EngineEvents.AFTER_PHYSICS_UPDATE, this._onAfterPhysicsUpdate);
-  }
-
   private _onBeforeFixedUpdates = (iterationCount: number): void => {
     if (!this._active || this._disposed) return;
     this._expectedFixedUpdates = Math.max(1, Math.floor(iterationCount));
@@ -957,10 +922,11 @@ export class ControlStateManager {
   };
 
   private _onInputProcess = (_delta: number, _absTimer: number): void => {
+    if (!this._active || this._disposed) return;
     this._frameCounter++;
     this._expectedFixedUpdates = 1;
 
-    this.gamepad.update();
+    this._captureBackend?.processInputFrame?.(_delta, _absTimer);
 
     this.keyboard.sample();
     this.mouse.sample();
@@ -971,31 +937,3 @@ export class ControlStateManager {
     this._emitter.emit(ControlStateEvents.INPUT_STATE_READY, this);
   };
 }
-
-// ============================================================================
-// Singleton
-// ============================================================================
-
-/**
- * Shared control state instance.
- * Defaults to the DOM capture backend in browser environments and to manual
- * wiring outside the browser.
- */
-export const sharedControlState = new ControlStateManager({
-  capture: FRONT_END ? "dom" : "none",
-  domCapture: {
-    target: () => CANVAS,
-    keyboardTarget: () => window,
-  },
-});
-
-/**
- * Device state singletons grouped for convenient access.
- */
-export const Devices = {
-  keyboard: sharedControlState.keyboard,
-  mouse: sharedControlState.mouse,
-  gamepad: sharedControlState.gamepad,
-  touch: sharedControlState.touch,
-  custom: sharedControlState.custom,
-};

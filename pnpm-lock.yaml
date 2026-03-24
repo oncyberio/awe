@@ -521,6 +521,9 @@ importers:
 
   packages/tools:
     dependencies:
+      '@dimforge/rapier3d-compat':
+        specifier: 0.11.2
+        version: 0.11.2
       '@gltf-transform/core':
         specifier: 4.0.0-alpha.7
         version: 4.0.0-alpha.7
@@ -530,6 +533,9 @@ importers:
       '@gltf-transform/functions':
         specifier: 4.0.0-alpha.7
         version: 4.0.0-alpha.7
+      '@oncyberio/engine':
+        specifier: workspace:*
+        version: link:../engine
       '@pinata/sdk':
         specifier: ^2.1.0
         version: 2.1.0
@@ -560,6 +566,9 @@ importers:
       sharp:
         specifier: ^0.33.0
         version: 0.33.5
+      three:
+        specifier: ^0.170.0
+        version: 0.170.0
       tmp:
         specifier: ^0.2.1
         version: 0.2.5

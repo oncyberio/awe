@@ -14,6 +14,7 @@
     "upload-asset": "tsx packages/tools/src/cli.ts upload-asset",
     "validate-scene": "tsx packages/tools/src/cli.ts validate-scene",
     "inspect-gltf": "tsx packages/tools/src/cli.ts inspect-gltf",
+    "run-space": "tsx packages/tools/src/cli.ts run-space",
     "engine:check": "pnpm --filter engine check",
     "engine:test": "pnpm --filter engine test",
     "engine-edit:check": "pnpm --filter engine-edit check",

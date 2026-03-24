@@ -134,4 +134,20 @@ export interface ModelComponentData extends Component3DData {
    * Each entry references a plugin by its string ID with optional configuration.
    */
   plugins?: PluginData[];
+
+  /**
+   * @internal
+   *
+   * When `true`, recenters the loaded model around its bounding-box center.
+   * When `false`, preserves the asset's authored pivot. Defaults to `false`.
+   */
+  center?: boolean;
+
+  /**
+   * Hint that this model's transform will remain fixed at runtime.
+   *
+   * When `true`, the engine may opt into caching or other static-instance
+   * optimizations for instanced models. Defaults to `false`.
+   */
+  fixedTransform?: boolean;
 }
