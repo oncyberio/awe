@@ -74,6 +74,7 @@ export class ModelFactory {
     var pluginString = this.getPluginString(data);
 
     var namePlugin = url + pluginString;
+    const requestedNamePlugin = namePlugin;
 
     if (this.GLTFManager.isLock(namePlugin) == true) {
       await this.GLTFManager.loadOnce({ name: namePlugin, url: url });
@@ -133,7 +134,11 @@ export class ModelFactory {
         }
       }
 
-      this.GLTFManager.unlock(namePlugin);
+      this.GLTFManager.unlock(requestedNamePlugin);
+
+      if (namePlugin !== requestedNamePlugin) {
+        this.GLTFManager.unlock(namePlugin);
+      }
     }
 
     if (this.instances[namePlugin] != null) {
