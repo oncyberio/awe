@@ -9,7 +9,6 @@ import { bakeAnimation } from "./bake/bake-animation";
 import { inspectGltf } from "./inspect/inspect-gltf";
 import { OptimizeService } from "./optimize-service";
 import { fileExists, resolveProjectPath, readJsonFile, writeJsonFile, getUploadedAssetsPath, getUploadedAvatarsPath } from "./file-utils";
-import { runSpaceProgram } from "./space";
 import type { OOAsset } from "./types";
 import type { UploadedAsset } from "./upload/upload-asset";
 
@@ -374,6 +373,7 @@ async function main() {
       }
 
       try {
+        const { runSpaceProgram } = await import("./space/run-space");
         const result = await runSpaceProgram({
           programPath,
           projectDir: projectDirFlag ? projectDir : undefined,

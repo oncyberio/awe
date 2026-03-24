@@ -50,9 +50,5 @@ export type { BakeResult, BakeAnimationOptions } from "./bake/bake-animation";
 export { inspectGltf } from "./inspect/inspect-gltf";
 export type { InspectionResult } from "./inspect/inspect-gltf";
 
-// Space programs
-export { defineSpaceProgram, runSpaceProgram } from "./space";
-export type { RunSpaceContext, SpaceProgram } from "./space";
-
 // File Utilities
 export { readJsonFile, writeJsonFile, fileExists, resolveProjectPath, getScenePath, getUploadedAssetsPath, getUploadedAvatarsPath } from "./file-utils";
