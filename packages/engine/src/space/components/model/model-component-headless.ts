@@ -1,4 +1,4 @@
-import { Box3, Mesh, MeshBasicMaterial } from "three";
+import { Box3, Mesh, MeshBasicMaterial, Vector3 } from "three";
 import { Component3D } from "../../abstract/component-3d";
 import { Subsystems } from "../../../internal/subsystems";
 import { buildCollisionMeshFromScene } from "../../../internal/media/model/build-collision-mesh";
@@ -13,6 +13,8 @@ export type { ModelComponentData } from "./model-data";
  */
 export class ModelComponentHeadless extends Component3D<ModelComponentData> {
   private _collision: Mesh = null;
+  private _center = new Vector3();
+  private _centerBox = new Box3();
 
   /** @internal */
   protected async init() {
@@ -22,6 +24,12 @@ export class ModelComponentHeadless extends Component3D<ModelComponentData> {
     const mesh = buildCollisionMeshFromScene(gltf.scene);
 
     if (mesh) {
+      if (this.data.center === true) {
+        this._centerBox.setFromObject(mesh);
+        this._centerBox.getCenter(this._center);
+        mesh.position.sub(this._center);
+      }
+
       mesh.visible = false;
       this.add(mesh);
       this._collision = mesh;

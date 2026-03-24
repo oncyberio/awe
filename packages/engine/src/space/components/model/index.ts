@@ -70,7 +70,8 @@ export class ModelComponentFactory extends DefaultComponentFactory<ModelComponen
       opacity: 1,
       enableRealTimeShadow: false,
       useTransparency: false,
-      center: true,
+      center: false,
+      fixedTransform: false,
     };
 
     this.setDataConfig({

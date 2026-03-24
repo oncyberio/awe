@@ -33,6 +33,10 @@ const tempv3 = new Vector3();
 const tempScale = new Vector3(1, 1, 1);
 
 const tempPos = new Vector3();
+const tempWrapperScale = new Vector3(1, 1, 1);
+const tempWorldSphere = new Sphere();
+const tempWrapperQuat = new Quaternion();
+const yAxis = new Vector3(0, 1, 0);
 
 import { radixSort } from "three/addons/utils/SortUtils.js";
 
@@ -128,6 +132,9 @@ export default class GeometryInstancer extends InstancedBufferGeometry {
         this._latestCamera = null;
 
         this._wMatrix = new Matrix4();
+
+        this._worldSphereCache = new WeakMap();
+        this._worldSphereCacheState = new WeakMap();
     }
 
     oldLength = 0;
@@ -138,6 +145,178 @@ export default class GeometryInstancer extends InstancedBufferGeometry {
         }
 
         this.useUniqueFrustumTestFunction = value;
+    }
+
+    getWrapperScale(target, wrapper) {
+        if (this.vrmScale == true) {
+            const s = wrapper.vrmScale ?? 1;
+            return target.set(s, s, s);
+        }
+
+        return target.set(
+            wrapper.scale.x * this.scaleRatio,
+            wrapper.scale.y,
+            wrapper.scale.z
+        );
+    }
+
+    getWrapperQuaternion(target, wrapper) {
+        if (this.opts.rotation == true && wrapper.rotation != null) {
+            return target.set(
+                wrapper.rotation[0],
+                wrapper.rotation[1],
+                wrapper.rotation[2],
+                wrapper.rotation[3]
+            );
+        }
+
+        if (this.opts.rotationY == true && wrapper.rotationY != null) {
+            return target.setFromAxisAngle(yAxis, wrapper.rotationY);
+        }
+
+        return target.set(0, 0, 0, 1);
+    }
+
+    computeWrapperWorldSphere(target, wrapper) {
+        this.getWrapperScale(tempWrapperScale, wrapper);
+        this.getWrapperQuaternion(tempWrapperQuat, wrapper);
+
+        target.center.copy(this.originalSphere.center);
+        target.center.x *= tempWrapperScale.x;
+        target.center.y *= tempWrapperScale.y;
+        target.center.z *= tempWrapperScale.z;
+        target.center.applyQuaternion(tempWrapperQuat);
+        target.center.add(wrapper.position);
+
+        target.radius =
+            this.tempRadius *
+            Math.max(
+                Math.abs(tempWrapperScale.x),
+                Math.abs(tempWrapperScale.y),
+                Math.abs(tempWrapperScale.z)
+            );
+
+        return target;
+    }
+
+    isWrapperWorldSphereCacheDirty(wrapper) {
+        const cachedSphere = this._worldSphereCache.get(wrapper);
+        const cachedState = this._worldSphereCacheState.get(wrapper);
+
+        if (cachedSphere == null || cachedState == null) {
+            return true;
+        }
+
+        const position = wrapper.position;
+
+        if (
+            cachedState.positionX !== position.x ||
+            cachedState.positionY !== position.y ||
+            cachedState.positionZ !== position.z
+        ) {
+            return true;
+        }
+
+        if (this.opts.rotation == true) {
+            const rotation = wrapper.rotation;
+            const rotX = rotation != null ? rotation[0] : 0;
+            const rotY = rotation != null ? rotation[1] : 0;
+            const rotZ = rotation != null ? rotation[2] : 0;
+            const rotW = rotation != null ? rotation[3] : 1;
+
+            if (
+                cachedState.rotationX !== rotX ||
+                cachedState.rotationY !== rotY ||
+                cachedState.rotationZ !== rotZ ||
+                cachedState.rotationW !== rotW
+            ) {
+                return true;
+            }
+        } else if (this.opts.rotationY == true) {
+            if (cachedState.rotationY !== (wrapper.rotationY ?? 0)) {
+                return true;
+            }
+        }
+
+        if (this.vrmScale == true) {
+            if (cachedState.vrmScale !== (wrapper.vrmScale ?? 1)) {
+                return true;
+            }
+        } else {
+            const scale = wrapper.scale;
+            const scaleX = scale != null ? scale.x : 1;
+            const scaleY = scale != null ? scale.y : 1;
+            const scaleZ = scale != null ? scale.z : 1;
+
+            if (
+                cachedState.scaleX !== scaleX ||
+                cachedState.scaleY !== scaleY ||
+                cachedState.scaleZ !== scaleZ
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    updateWrapperWorldSphereCache(wrapper) {
+        let cachedSphere = this._worldSphereCache.get(wrapper);
+
+        if (cachedSphere == null) {
+            cachedSphere = new Sphere();
+            this._worldSphereCache.set(wrapper, cachedSphere);
+        }
+
+        this.computeWrapperWorldSphere(cachedSphere, wrapper);
+
+        let cachedState = this._worldSphereCacheState.get(wrapper);
+
+        if (cachedState == null) {
+            cachedState = {};
+            this._worldSphereCacheState.set(wrapper, cachedState);
+        }
+
+        const position = wrapper.position;
+
+        cachedState.positionX = position.x;
+        cachedState.positionY = position.y;
+        cachedState.positionZ = position.z;
+
+        if (this.opts.rotation == true) {
+            const rotation = wrapper.rotation;
+            cachedState.rotationX = rotation != null ? rotation[0] : 0;
+            cachedState.rotationY = rotation != null ? rotation[1] : 0;
+            cachedState.rotationZ = rotation != null ? rotation[2] : 0;
+            cachedState.rotationW = rotation != null ? rotation[3] : 1;
+        } else if (this.opts.rotationY == true) {
+            cachedState.rotationY = wrapper.rotationY ?? 0;
+        }
+
+        if (this.vrmScale == true) {
+            cachedState.vrmScale = wrapper.vrmScale ?? 1;
+        } else {
+            const scale = wrapper.scale;
+            cachedState.scaleX = scale != null ? scale.x : 1;
+            cachedState.scaleY = scale != null ? scale.y : 1;
+            cachedState.scaleZ = scale != null ? scale.z : 1;
+        }
+
+        return cachedSphere;
+    }
+
+    getWrapperWorldSphere(target, wrapper) {
+        let cachedSphere = this._worldSphereCache.get(wrapper);
+
+        if (
+            cachedSphere == null ||
+            (this.isStatic != true &&
+                this.isWrapperWorldSphereCacheDirty(wrapper))
+        ) {
+            cachedSphere = this.updateWrapperWorldSphereCache(wrapper);
+        }
+
+        return target.copy(cachedSphere);
     }
 
     sort(wrappers, camera = null, forceView = false) {
@@ -183,6 +362,13 @@ export default class GeometryInstancer extends InstancedBufferGeometry {
                 wrapper.updateFromSource();
             }
 
+            const worldSphere = this.getWrapperWorldSphere(
+                this.tempSphere,
+                wrapper
+            );
+
+            temp1.copy(worldSphere.center);
+
             if (
                 this.useFrustumCulling == false ||
                 uniqueFrutumTestResult == true
@@ -203,46 +389,25 @@ export default class GeometryInstancer extends InstancedBufferGeometry {
                 // the main instance buffer during the normal scene render.
                 contains = true;
             } else {
-                temp1.copy(wrapper.position);
-                let maxScale = Math.max(
-                    wrapper.scale.x * this.scaleRatio,
-                    wrapper.scale.y,
-                    wrapper.scale.z
-                );
-                maxScale = this.vrmScale
-                    ? Math.max(
-                          wrapper._scale.x,
-                          wrapper._scale.y,
-                          wrapper._scale.z
-                      )
-                    : maxScale;
-                if (wrapper.dynamicShadow) maxScale *= 2;
-
                 if (wrapper.customFrustumTest != null) {
                     contains = wrapper.customFrustumTest(frustum);
                 } else {
-                    this.sphere.radius = this.tempRadius * maxScale;
-                    this.tempSphere.copy(this.sphere);
-                    this.tempSphere.center.add(temp1);
-                    contains = frustum.intersectsSphere(this.tempSphere);
+                    if (wrapper.dynamicShadow) {
+                        worldSphere.radius *= 2;
+                    }
+
+                    contains = frustum.intersectsSphere(worldSphere);
                 }
             }
 
             if (contains) {
                 wrapper._distance = temp1.distanceTo(camPosition);
                 if (wrapper._distance < closestDistance) {
-                    this.boundingSphere.center
-                        .copy(this.originalSphere.center)
-                        .add(wrapper.position);
+                    this.boundingSphere.center.copy(temp1);
+                    this.boundingSphere.radius = this.tempSphere.radius;
                     tempPos.copy(wrapper.position);
-                    if (this.vrmScale != true) {
-                        tempQuat.set(
-                            wrapper.rotation[0],
-                            wrapper.rotation[1],
-                            wrapper.rotation[2],
-                            wrapper.rotation[3]
-                        );
-                    }
+                    this.getWrapperQuaternion(tempQuat, wrapper);
+                    this.getWrapperScale(tempScale, wrapper);
                 }
 
                 closestDistance = Math.min(closestDistance, wrapper._distance);

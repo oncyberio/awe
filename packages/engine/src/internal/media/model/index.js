@@ -259,6 +259,8 @@ export class ModelFactory {
 
         scale: true,
 
+        isStatic: data.fixedTransform === true && IS_EDIT_MODE === false,
+
         useGeometryColor: o.geometry.attributes.color != null,
 
         // we need to set it to true, in case the first buffer ( the copy buffer ) is non transparent, but the rest is..
@@ -319,13 +321,16 @@ export class ModelFactory {
       i++;
     }
 
-    // calculate bounding boxes without LODS
+    if (data.center === true) {
+      // calculate the centering offset without LOD-only meshes.
+      tempBox.setFromObject(res.scene);
 
-    tempBox.setFromObject(res.scene);
+      tempBox.getCenter(tempVec);
 
-    tempBox.getCenter(tempVec);
-
-    tempMat4.makeTranslation(-tempVec.x, -tempVec.y, -tempVec.z);
+      tempMat4.makeTranslation(-tempVec.x, -tempVec.y, -tempVec.z);
+    } else {
+      tempMat4.identity();
+    }
 
     // then put back the LODS in the scene
 
@@ -890,6 +895,10 @@ export class ModelFactory {
 
     if (opts.center) {
       str += "center,";
+    }
+
+    if (opts.fixedTransform) {
+      str += "fixedTransform,";
     }
 
     str += "transparency" + opts.useTransparency + ",";

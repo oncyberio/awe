@@ -232,6 +232,7 @@ export class ModelComponent extends Component3D<ModelComponentData> {
       opts.prev?.renderMode != this.data.renderMode ||
       opts.prev?.enableRealTimeShadow != this.data.enableRealTimeShadow ||
       opts.prev?.useTransparency != this.data.useTransparency ||
+      opts.prev?.fixedTransform != this.data.fixedTransform ||
       opts.prev?.plugins !== this.data.plugins
     ) {
       // If only plugin parameters changed (same plugin ids, same order),
@@ -241,6 +242,7 @@ export class ModelComponent extends Component3D<ModelComponentData> {
         opts.prev?.renderMode == this.data.renderMode &&
         opts.prev?.enableRealTimeShadow == this.data.enableRealTimeShadow &&
         opts.prev?.useTransparency == this.data.useTransparency &&
+        opts.prev?.fixedTransform == this.data.fixedTransform &&
         this._isSamePluginStructure(opts.prev?.plugins, this.data.plugins)
       ) {
         this._liveUpdatePluginUniforms();

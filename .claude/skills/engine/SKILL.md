@@ -37,6 +37,14 @@ Keep `/engine` for scene structure, component APIs, gameplay logic, and normal s
 
 The scene file maps component IDs to component data. Each component has `id`, `name`, `type`, `position`, `rotation`, `scale`, and type-specific properties at the root level. Use `script.identifier` / `script.tag` for runtime lookups via `byId()` / `byTag()`.
 
+### Model Notes
+
+For `model` components, keep these runtime semantics in mind:
+
+- `center` is explicit opt-in. Default model behavior preserves the asset's authored pivot.
+- `fixedTransform` is a hint that the model will not move at runtime. This can enable static-instance optimizations for instanced models and is a good fit for fixed scene dressing.
+- Treat `fixedTransform` as a runtime hint, not a placement tool. In edit mode, models should still be movable.
+
 **See:** [references/examples/static-scene-minimal.json](references/examples/static-scene-minimal.json) for a working minimal scene.
 
 ## Reference Documentation

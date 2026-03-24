@@ -51,7 +51,8 @@ export class ModelComponentFactoryHeadless extends DefaultComponentFactory<Model
       opacity: 1,
       enableRealTimeShadow: false,
       useTransparency: false,
-      center: true,
+      center: false,
+      fixedTransform: false,
     };
 
     this.setDataConfig({
