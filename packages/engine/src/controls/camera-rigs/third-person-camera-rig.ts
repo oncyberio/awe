@@ -16,6 +16,7 @@ const TWO_PI = Math.PI * 2;
 const _cartesian = new Vector3();
 const _direction = new Vector3();
 const _origin = new Vector3();
+const _rayOrigin = new Vector3();
 const _rotationMatrix = new Matrix4();
 
 /**
@@ -611,6 +612,7 @@ export class ThirdPersonCameraRig extends BaseCameraRig {
     playerCenter.y += this._cameraHeight - this._height;
 
     _direction.subVectors(cameraPos, playerCenter).normalize();
+    _origin.set(0, 0, 0);
     _rotationMatrix.lookAt(_origin, _direction, this._camera.up);
 
     // Initialize near plane corners
@@ -627,7 +629,7 @@ export class ThirdPersonCameraRig extends BaseCameraRig {
 
     for (const corner of this._nearPlaneCorners) {
       corner.applyMatrix4(_rotationMatrix);
-      const origin = _origin.addVectors(playerCenter, corner);
+      const origin = _rayOrigin.addVectors(playerCenter, corner);
 
       const result = this._raycast(origin, _direction, distance);
       if (result && result.distance < distance && result.distance > 0) {
