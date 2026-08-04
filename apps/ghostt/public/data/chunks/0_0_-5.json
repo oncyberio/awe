@@ -1,0 +1,309 @@
+{
+  "id": "0_0_-5",
+  "presets": {
+    "fog": {
+      "name": "Fog",
+      "id": "fog",
+      "fadeColor": "#87CEEB",
+      "kit": "cyber",
+      "near": 50,
+      "type": "fog",
+      "enabled": true,
+      "far": 2059,
+      "_version": 1769954164106
+    },
+    "background": {
+      "name": "Background",
+      "id": "background",
+      "kit": "cyber",
+      "type": "background",
+      "options": {
+        "type": "image",
+        "color": "#87CEEB",
+        "skyOpts": {
+          "elevation": 2,
+          "turbidity": 4,
+          "mieCoefficient": 0.005,
+          "rayleigh": 3,
+          "azimuth": 180,
+          "mieDirectionalG": 0.07
+        },
+        "imageId": "custom",
+        "imagePath": "/assets/04_2jpg.jpg",
+        "imageFormat": ".jpg"
+      },
+      "_version": 1772123695767
+    },
+    "envmap": {
+      "name": "Environment Map",
+      "id": "envmap",
+      "kit": "cyber",
+      "type": "envmap",
+      "options": {
+        "type": "image",
+        "imageId": "studio",
+        "imageFormat": "hdr",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "_version": 1769528679378
+    },
+    "lighting": {
+      "name": "Lighting",
+      "id": "lighting",
+      "intensity": 1,
+      "lightDirection": {
+        "x": 0.5,
+        "y": -1,
+        "z": 0.5
+      },
+      "lightPosition": {
+        "x": 50,
+        "y": 100,
+        "z": 50
+      },
+      "size": 100,
+      "far": 200,
+      "kit": "cyber",
+      "bias": -0.001,
+      "near": 1,
+      "type": "lighting",
+      "_version": 1769775851149,
+      "enabled": true
+    },
+    "postprocessing": {
+      "name": "Post Processing",
+      "type": "postprocessing",
+      "id": "postprocessing",
+      "kit": "cyber",
+      "enabled": false,
+      "postProType": "TV",
+      "bloomOpts": {
+        "threshold": 0.75,
+        "smoothing": 0.29,
+        "intensity": 0.6,
+        "radius": 0.7,
+        "color": "#ffffff"
+      },
+      "_version": 1780326281007,
+      "lutOpts": {
+        "image": {
+          "id": "hudson",
+          "name": "hudson",
+          "image": "https://cdn.oncyber.xyz/engine-assets/lutmaps/hudsonImg.png",
+          "path": "https://cdn.oncyber.xyz/engine-assets/lutmaps/hudson.png"
+        }
+      },
+      "tvOpts": {
+        "amount": 1,
+        "strength": 1,
+        "glitchRatio": 0.2,
+        "speed": 1,
+        "vignetteFallOff": 0,
+        "vignetteStrength": 1
+      },
+      "trippyOpts": {
+        "speed": 0.1
+      }
+    },
+    "water": {
+      "type": "water",
+      "id": "water",
+      "kit": "cyber",
+      "color": "#001E0F",
+      "opacity": 1,
+      "scale": {
+        "x": 2000,
+        "z": 2000
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": -10000
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH"
+      },
+      "_version": 1780325600171
+    }
+  },
+  "assets": {
+    "terrain-1779923936177": {
+      "type": "terrain",
+      "id": "terrain-1779923936177",
+      "kit": "cyber",
+      "position": {
+        "x": 0,
+        "y": 0.3,
+        "z": -50000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 150,
+        "z": 1
+      },
+      "color": "#bbbbbb",
+      "noiseEnabled": false,
+      "definition": 100,
+      "seed": 4321,
+      "noiseDomain": 5,
+      "smoothCenter": 0.5,
+      "smoothLength": 0.1,
+      "islandSmooth": 1,
+      "islandLength": 0.1,
+      "innerRadius": 0,
+      "textureOpts": {
+        "id": "wooden",
+        "name": "Wood",
+        "image": "https://cdn.oncyber.xyz/engine-assets/terrain/woodenImg-v2.png",
+        "path": "https://cdn.oncyber.xyz/engine-assets/terrain/wooden.jpeg",
+        "format": ".jpg"
+      },
+      "tiles": 20,
+      "mode": "shader",
+      "shader": "grid",
+      "shape": "plane",
+      "griddiv": 180,
+      "lineWidth": 0.5,
+      "gridColor": "#000000",
+      "edgeTransition": 5,
+      "noTileDisplacement": 1,
+      "smoothAngle": 0.7,
+      "visibleOnOcclusion": true,
+      "textureSideOpts": {
+        "id": "grass",
+        "name": "Grass",
+        "image": "https://cdn.oncyber.xyz/engine-assets/terrain/grassImg-v2.png",
+        "path": "https://cdn.oncyber.xyz/engine-assets/terrain/grass.jpg",
+        "format": ".jpg"
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH"
+      },
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1785416843995,
+      "lock": null
+    },
+    "portal-Ag9W4oNTw7_5tL6Rbko7C": {
+      "type": "portal",
+      "kit": "cyber",
+      "name": "",
+      "position": {
+        "x": -20.103781967197534,
+        "y": 43.708950461857704,
+        "z": -50012.973939399315
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "destination": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "radius": 1,
+      "color": "#00ffff",
+      "opacity": 0.8,
+      "display": true,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "fixed",
+        "colliderType": "cylinder",
+        "isSensor": true
+      },
+      "id": "portal-Ag9W4oNTw7_5tL6Rbko7C",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779926427629
+    },
+    "model-cmFkhu7h8kLAhK-hV80cj": {
+      "type": "model",
+      "mime_type": "model/gltf-binary",
+      "url": "/assets/uploaded-assets-11fe7329a6c2d008effcdd755172bd352b767ce93263bda024f5292b6faaeee8.glb",
+      "name": "conf-buddies.glb",
+      "preview": null,
+      "optimized": {
+        "high": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_high.glb",
+        "low": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_low.glb",
+        "low_compressed": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_low_compressed.glb"
+      },
+      "meta": {
+        "hash": "11fe7329a6c2d008effcdd755172bd352b767ce93263bda024f5292b6faaeee8",
+        "addedBy": "",
+        "placeholder": ""
+      },
+      "enableAnimation": false,
+      "kit": "cyber",
+      "position": {
+        "x": -2.0516453466328417,
+        "y": 41.903498777319655,
+        "z": -49986.29886848074
+      },
+      "rotation": {
+        "x": -3.141592653589793,
+        "y": 1.2246467991473532e-16,
+        "z": -3.141592653589793
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "envmap": "scene",
+      "envmapIntensity": 1,
+      "animations": {},
+      "renderMode": "default",
+      "plugins": [],
+      "opacity": 1,
+      "enableRealTimeShadow": false,
+      "useTransparency": false,
+      "center": false,
+      "fixedTransform": false,
+      "id": "model-cmFkhu7h8kLAhK-hV80cj",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1785416804465,
+      "lock": null,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH",
+        "isSensor": false,
+        "dynamicProps": {
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0,
+          "linearDamping": 0,
+          "angularDamping": 0
+        }
+      }
+    }
+  },
+  "auth": [],
+  "info": {
+    "title": "Info"
+  }
+}

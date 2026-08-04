@@ -1,0 +1,1256 @@
+{
+  "creatorId": "anon",
+  "editors": [
+    "anon"
+  ],
+  "id": "platformer-demo",
+  "components": {
+    "vrm-anims": {
+      "name": "VRM Animations",
+      "kit": "cyber",
+      "id": "vrm-anims",
+      "type": "vrm-anims",
+      "_version": 1725904926656,
+      "url": "https://cyber.mypinata.cloud/ipfs/QmSxBEzzgwqjmtTRBc6ywcJ2fDYE2ckNRTsKmA9JNETfgp?filename=1725904909-Ny3MlG6hsAlirYgsRqYO-vrm-anims-default.json",
+      "anims": {
+        "jump_idle": {
+          "fileName": "jump_idle.fbx",
+          "name": "jump_idle",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/jump_idle.json",
+          "hash": "947ed5b6b6b4b5d1de662006f9f56a15e26fbe81add2c18a3b3c3a0880b5bc92"
+        },
+        "jump_running": {
+          "fileName": "jump_running.fbx",
+          "name": "jump_running",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/jump_running.json",
+          "hash": "f97f989f11065d6ef16953997b376bbe52ec6579ffe8cac65fec545670812ea1"
+        },
+        "jump_sprinting": {
+          "fileName": "jump_sprinting.fbx",
+          "name": "jump_sprinting",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/jump_sprinting.json",
+          "hash": "676f434bbfa9a2dd21fd0e1e3f4e2cc56d41b3d137c0d44a3c83ba6c07f6a3c4"
+        },
+        "jump_walking": {
+          "fileName": "jump_walking.fbx",
+          "name": "jump_walking",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/jump_walking.json",
+          "hash": "5770376de5a698598b5e976bdc8522561b177134c5829bb8c8b3f2c2422f6dd9"
+        },
+        "sprint": {
+          "fileName": "sprint.fbx",
+          "name": "sprint",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/sprint.json",
+          "hash": "5eaac025cd7d756f7be6a06e7624535e647157ce904bcc09998ddae59fee7bba"
+        },
+        "drop_running_roll": {
+          "fileName": "drop_running_roll.fbx",
+          "name": "drop_running_roll",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/drop_running_roll.json",
+          "hash": "d8284031e7d9767c5b17a96f747813fcd0dadca8bc52eb1563530c2eb6aaa413"
+        },
+        "drop_running": {
+          "fileName": "drop_running.fbx",
+          "name": "drop_running",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/drop_running.json",
+          "hash": "06c2913f25622fd029d5bf4fdf4a0594c872df3315c23f695811977ce612aa28"
+        },
+        "drop_sprinting_roll": {
+          "fileName": "drop_sprinting_roll.fbx",
+          "name": "drop_sprinting_roll",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/drop_sprinting_roll.json",
+          "hash": "e955f9806042a1047ce31feb2efdac82200abca13892ae2b8967409c36a35bb4"
+        },
+        "drop_sprinting": {
+          "fileName": "drop_sprinting.fbx",
+          "name": "drop_sprinting",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/drop_sprinting.json",
+          "hash": "13311a9edda27e16b37451836117973a00f88da498b6c5d520a869e62ad2c405"
+        },
+        "drop_walking_roll": {
+          "fileName": "drop_walking_roll.fbx",
+          "name": "drop_walking_roll",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/drop_walking_roll.json",
+          "hash": "663caf738a20b4176827161b4b88233be04375bccdbaabd1963882a0d1406026"
+        },
+        "drop_walking": {
+          "fileName": "drop_walking.fbx",
+          "name": "drop_walking",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/drop_walking.json",
+          "hash": "eaba01df01a46722df3980a2587791187dd1e2e868b9bdc820e5965e98a2f221"
+        },
+        "falling": {
+          "fileName": "falling.fbx",
+          "name": "falling",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/falling.json",
+          "hash": "ee8f320e6efae9f3513ed06b38ff04ee4ddd7a4f09da611aa5cf928ef44c00b7"
+        },
+        "jump_double": {
+          "fileName": "jump_double.fbx",
+          "name": "jump_double",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/jump_double.json",
+          "hash": "a0c74c836a855eae4a5eced9f4c018e986f59400438859f2f260802f01868d42"
+        },
+        "p_idle": {
+          "fileName": "idle.fbx",
+          "name": "p_idle",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/idle.json",
+          "hash": "084b681c2ffd7e810e8d5dd71d93484ac949a2ecd03d6d8a379f267434d1fa7f"
+        },
+        "p_run": {
+          "fileName": "run.fbx",
+          "name": "p_run",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/run.json",
+          "hash": "86173d3e9c2c436658a9e6828d99c6a6378b63b53e3c308749cf965d2b738269"
+        },
+        "p_walk": {
+          "fileName": "walk.fbx",
+          "name": "p_walk",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "url": "/assets/anims/walk.json",
+          "hash": "eb0107c1383e7de11898ecf695938919af9d471d88439db9a2afb988c2c0dd6d"
+        },
+        "drop_idle": {
+          "fileName": "drop_idle.fbx",
+          "name": "drop_idle",
+          "loop": true,
+          "sync": false,
+          "timeScale": 1,
+          "hash": "e4a82d190538a0106255faaffffc4d3863f0726b5190ef91d2024691ac02bd41",
+          "url": "/assets/anims/drop_idle.json"
+        }
+      }
+    },
+    "fog": {
+      "name": "Fog",
+      "id": "fog",
+      "fadeColor": "#87CEEB",
+      "kit": "cyber",
+      "near": 50,
+      "type": "fog",
+      "enabled": true,
+      "far": 2059,
+      "_version": 1769954164106
+    },
+    "background": {
+      "name": "Background",
+      "id": "background",
+      "kit": "cyber",
+      "type": "background",
+      "options": {
+        "type": "image",
+        "color": "#87CEEB",
+        "skyOpts": {
+          "elevation": 2,
+          "turbidity": 4,
+          "mieCoefficient": 0.005,
+          "rayleigh": 3,
+          "azimuth": 180,
+          "mieDirectionalG": 0.07
+        },
+        "imageId": "custom",
+        "imagePath": "/assets/04_2jpg.jpg",
+        "imageFormat": ".jpg"
+      },
+      "_version": 1772123695767
+    },
+    "envmap": {
+      "name": "Environment Map",
+      "id": "envmap",
+      "kit": "cyber",
+      "type": "envmap",
+      "options": {
+        "type": "image",
+        "imageId": "studio",
+        "imageFormat": "hdr",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "_version": 1769528679378
+    },
+    "lighting": {
+      "name": "Lighting",
+      "id": "lighting",
+      "intensity": 1,
+      "lightDirection": {
+        "x": 0.5,
+        "y": -1,
+        "z": 0.5
+      },
+      "lightPosition": {
+        "x": 50,
+        "y": 100,
+        "z": 50
+      },
+      "size": 100,
+      "far": 200,
+      "kit": "cyber",
+      "bias": -0.001,
+      "near": 1,
+      "type": "lighting",
+      "_version": 1769775851149,
+      "enabled": true
+    },
+    "Player": {
+      "name": "Player",
+      "id": "Player",
+      "type": "avatar",
+      "kit": "cyber",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": 1.6960369922133703e-16,
+        "y": 0,
+        "z": -3.5068231544738513e-17
+      },
+      "scale": {
+        "x": 0.71,
+        "y": 0.71,
+        "z": 0.71
+      },
+      "plugins": [],
+      "renderMode": "default",
+      "useCpuAnimation": true,
+      "script": {
+        "_isPlayer": true,
+        "identifier": "player"
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "PLAYER",
+        "colliderType": "CAPSULE"
+      },
+      "_version": 1772805483736,
+      "url": "https://cdn.oncyber.xyz/engine-assets/vrms/sunshine.glb",
+      "picture": "",
+      "awaitAvatarLoading": true,
+      "awaitPictureLoading": true,
+      "awaitLoaderThrottle": 0,
+      "text": "",
+      "nameDisplayWithPicture": true,
+      "animation": "IDLE",
+      "opacity": 1,
+      "ignoreLOD": false
+    },
+    "postprocessing": {
+      "name": "Post Processing",
+      "type": "postprocessing",
+      "id": "postprocessing",
+      "kit": "cyber",
+      "enabled": false,
+      "postProType": "TV",
+      "bloomOpts": {
+        "threshold": 0.75,
+        "smoothing": 0.29,
+        "intensity": 0.6,
+        "radius": 0.7,
+        "color": "#ffffff"
+      },
+      "_version": 1780326281007,
+      "lutOpts": {
+        "image": {
+          "id": "hudson",
+          "name": "hudson",
+          "image": "https://cdn.oncyber.xyz/engine-assets/lutmaps/hudsonImg.png",
+          "path": "https://cdn.oncyber.xyz/engine-assets/lutmaps/hudson.png"
+        }
+      },
+      "tvOpts": {
+        "amount": 1,
+        "strength": 1,
+        "glitchRatio": 0.2,
+        "speed": 1,
+        "vignetteFallOff": 0,
+        "vignetteStrength": 1
+      },
+      "trippyOpts": {
+        "speed": 0.1
+      }
+    },
+    "terrain-1769954061436": {
+      "type": "terrain",
+      "id": "terrain-1769954061436",
+      "kit": "cyber",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": -165.1676
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1000,
+        "y": 150,
+        "z": 1000
+      },
+      "color": "#bbbbbb",
+      "noiseEnabled": false,
+      "definition": 100,
+      "seed": 4321,
+      "noiseDomain": 5,
+      "smoothCenter": 0.5,
+      "smoothLength": 0.1,
+      "islandSmooth": 1,
+      "islandLength": 0.1,
+      "innerRadius": 0,
+      "textureOpts": {
+        "id": "grid",
+        "name": "Grid",
+        "image": "https://cdn.oncyber.xyz/engine-assets/terrain/gridImg-v2.png",
+        "path": "https://cdn.oncyber.xyz/engine-assets/terrain/grid-v2.png",
+        "format": ".jpg"
+      },
+      "tiles": 20,
+      "mode": "texture",
+      "shader": "grid",
+      "shape": "plane",
+      "griddiv": 180,
+      "lineWidth": 0.5,
+      "gridColor": "#000000",
+      "edgeTransition": 5,
+      "noTileDisplacement": 1,
+      "smoothAngle": 0.7,
+      "visibleOnOcclusion": true,
+      "textureSideOpts": {
+        "id": "grass",
+        "name": "Grass",
+        "image": "https://cdn.oncyber.xyz/engine-assets/terrain/grassImg-v2.png",
+        "path": "https://cdn.oncyber.xyz/engine-assets/terrain/grass.jpg",
+        "format": ".jpg"
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH"
+      },
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779972926937,
+      "receiveShadow": true,
+      "lock": {
+        "position": true,
+        "rotation": true,
+        "lockedBy": "admin"
+      }
+    },
+    "portal-gdEPYkoGWuisJ230cwCYi": {
+      "type": "portal",
+      "kit": "cyber",
+      "name": "",
+      "position": {
+        "x": 0,
+        "y": 0.1,
+        "z": -10010
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "destination": {
+        "x": 0,
+        "y": 0,
+        "z": -20000
+      },
+      "radius": 1,
+      "color": "#00ffff",
+      "opacity": 0.8,
+      "display": true,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "fixed",
+        "colliderType": "cylinder",
+        "isSensor": true
+      },
+      "id": "portal-gdEPYkoGWuisJ230cwCYi",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1781163486931,
+      "image": "",
+      "slug": "paladins",
+      "cooldown": 1500
+    },
+    "portal-SoIMQXIGsRGpudBn_09PF": {
+      "type": "portal",
+      "kit": "cyber",
+      "name": "",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": -10
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "destination": {
+        "x": 0,
+        "y": 0,
+        "z": -10000
+      },
+      "radius": 1,
+      "color": "#00ffff",
+      "opacity": 0.8,
+      "display": true,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "fixed",
+        "colliderType": "cylinder",
+        "isSensor": true
+      },
+      "id": "portal-SoIMQXIGsRGpudBn_09PF",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1781463863566,
+      "image": {
+        "id": "custom",
+        "name": "f811d196540943508028cccb424adbef.png",
+        "path": "/assets/f811d196540943508028cccb424adbef.png",
+        "image": "/assets/f811d196540943508028cccb424adbef.png",
+        "format": ".png",
+        "mimeType": "image/png"
+      },
+      "slug": "pepeprague",
+      "cooldown": 1500,
+      "p_name": "PepePrague"
+    },
+    "model-v7G76fFq-Ma-vAPla-8fn": {
+      "type": "model",
+      "mime_type": "model/gltf-binary",
+      "url": "/assets/uploaded-assets-2b8f46e4d5c45da7e7335b5a1ee9387da3e9db2516766d11c5cca6e8a31d8048.glb",
+      "name": "paladinpunks_27.glb",
+      "preview": null,
+      "optimized": {
+        "high": "/assets/optimized/c67454246ab6896429966a2849e02679177228a9efe27e144c114e4a7d01adcb_v0_high.glb",
+        "low": "/assets/optimized/c67454246ab6896429966a2849e02679177228a9efe27e144c114e4a7d01adcb_v0_low.glb",
+        "low_compressed": "/assets/optimized/c67454246ab6896429966a2849e02679177228a9efe27e144c114e4a7d01adcb_v0_low_compressed.glb"
+      },
+      "meta": {
+        "hash": "2b8f46e4d5c45da7e7335b5a1ee9387da3e9db2516766d11c5cca6e8a31d8048",
+        "addedBy": "",
+        "placeholder": ""
+      },
+      "enableAnimation": false,
+      "kit": "cyber",
+      "position": {
+        "x": 0,
+        "y": 4.7,
+        "z": -10100
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "envmap": "scene",
+      "envmapIntensity": 1,
+      "animations": {},
+      "renderMode": "default",
+      "plugins": [],
+      "opacity": 1,
+      "enableRealTimeShadow": false,
+      "useTransparency": false,
+      "center": false,
+      "fixedTransform": false,
+      "id": "model-v7G76fFq-Ma-vAPla-8fn",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779889603326,
+      "lock": {
+        "position": true,
+        "rotation": true,
+        "lockedBy": "admin"
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH",
+        "isSensor": false,
+        "dynamicProps": {
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0,
+          "linearDamping": 0,
+          "angularDamping": 0
+        }
+      }
+    },
+    "terrain-1779889235943": {
+      "type": "terrain",
+      "id": "terrain-1779889235943",
+      "kit": "cyber",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": -30000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1000,
+        "y": 150,
+        "z": 1000
+      },
+      "color": "#963f97",
+      "noiseEnabled": false,
+      "definition": 100,
+      "seed": 4321,
+      "noiseDomain": 5,
+      "smoothCenter": 0.5,
+      "smoothLength": 0.1,
+      "islandSmooth": 1,
+      "islandLength": 0.1,
+      "innerRadius": 0,
+      "textureOpts": {
+        "id": "grid",
+        "name": "Grid",
+        "image": "https://cdn.oncyber.xyz/engine-assets/terrain/gridImg-v2.png",
+        "path": "https://cdn.oncyber.xyz/engine-assets/terrain/grid-v2.png",
+        "format": ".jpg"
+      },
+      "tiles": 20,
+      "mode": "texture",
+      "shader": "grid",
+      "shape": "plane",
+      "griddiv": 180,
+      "lineWidth": 0.5,
+      "gridColor": "#000000",
+      "edgeTransition": 5,
+      "noTileDisplacement": 1,
+      "smoothAngle": 0.7,
+      "visibleOnOcclusion": true,
+      "textureSideOpts": {
+        "id": "grass",
+        "name": "Grass",
+        "image": "https://cdn.oncyber.xyz/engine-assets/terrain/grassImg-v2.png",
+        "path": "https://cdn.oncyber.xyz/engine-assets/terrain/grass.jpg",
+        "format": ".jpg"
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH"
+      },
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779892710232
+    },
+    "portal-PmHkiDVD-7lS8KJ62yU8p": {
+      "type": "portal",
+      "kit": "cyber",
+      "name": "",
+      "position": {
+        "x": 0,
+        "y": 0.1,
+        "z": -20010
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "destination": {
+        "x": 0,
+        "y": 0,
+        "z": -30000
+      },
+      "radius": 1,
+      "color": "#00ffff",
+      "opacity": 0.8,
+      "display": true,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "fixed",
+        "colliderType": "cylinder",
+        "isSensor": true
+      },
+      "id": "portal-PmHkiDVD-7lS8KJ62yU8p",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779890689703
+    },
+    "model-h6oI-nx2bqgAFoAnHcRHd": {
+      "type": "model",
+      "mime_type": "model/gltf-binary",
+      "url": "/assets/uploaded-assets-2f668e7b5ae87b01f42b8c3b6797ebd2db0300b03f560214c064691b6cce14ea.glb",
+      "name": "fake-warehouse-transformed-4k.glb",
+      "preview": null,
+      "optimized": {
+        "high": "/assets/optimized/f5e4aca99bf688ba641df265f875a9400e9ca877df3ac4a94f6cef07648174a3_v0_high.glb",
+        "low": "/assets/optimized/f5e4aca99bf688ba641df265f875a9400e9ca877df3ac4a94f6cef07648174a3_v0_low.glb",
+        "low_compressed": "/assets/optimized/f5e4aca99bf688ba641df265f875a9400e9ca877df3ac4a94f6cef07648174a3_v0_low_compressed.glb"
+      },
+      "meta": {
+        "hash": "2f668e7b5ae87b01f42b8c3b6797ebd2db0300b03f560214c064691b6cce14ea",
+        "addedBy": "",
+        "placeholder": ""
+      },
+      "enableAnimation": false,
+      "kit": "cyber",
+      "position": {
+        "x": 6.472769276802479,
+        "y": 0.1,
+        "z": -19976.380605587416
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "envmap": "scene",
+      "envmapIntensity": 1,
+      "animations": {},
+      "renderMode": "default",
+      "plugins": [],
+      "opacity": 1,
+      "enableRealTimeShadow": false,
+      "useTransparency": false,
+      "center": false,
+      "fixedTransform": false,
+      "id": "model-h6oI-nx2bqgAFoAnHcRHd",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779889828054,
+      "lock": {
+        "position": true,
+        "rotation": true,
+        "lockedBy": "admin"
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH",
+        "isSensor": false,
+        "dynamicProps": {
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0,
+          "linearDamping": 0,
+          "angularDamping": 0
+        }
+      }
+    },
+    "portal-v1cMs_cbcmD91ezejf5_m": {
+      "type": "portal",
+      "kit": "cyber",
+      "name": "",
+      "position": {
+        "x": 0,
+        "y": 0.1,
+        "z": -30010
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "destination": {
+        "x": 0,
+        "y": 0,
+        "z": -39986
+      },
+      "radius": 1,
+      "color": "#00ffff",
+      "opacity": 0.8,
+      "display": true,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "fixed",
+        "colliderType": "cylinder",
+        "isSensor": true
+      },
+      "id": "portal-v1cMs_cbcmD91ezejf5_m",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779892808951
+    },
+    "model-qd4L8YLm5gF3lWGOiq2pJ": {
+      "type": "model",
+      "mime_type": "model/gltf-binary",
+      "url": "/assets/uploaded-assets-86b546f95c4c0e3fb20cab05b8d709c69a8c3394d09a2d4b9acc5792e36c35ba.glb",
+      "name": "downtown_buildings_set_-_low_poly_model.glb",
+      "preview": null,
+      "optimized": {
+        "high": "/assets/optimized/073df274ae856ecf64bafc2173d54666f62d1dfe4c32a6f3a59b04f9586ffa02_v0_high.glb",
+        "low": "/assets/optimized/073df274ae856ecf64bafc2173d54666f62d1dfe4c32a6f3a59b04f9586ffa02_v0_low.glb",
+        "low_compressed": "/assets/optimized/073df274ae856ecf64bafc2173d54666f62d1dfe4c32a6f3a59b04f9586ffa02_v0_low_compressed.glb"
+      },
+      "meta": {
+        "hash": "86b546f95c4c0e3fb20cab05b8d709c69a8c3394d09a2d4b9acc5792e36c35ba",
+        "addedBy": "",
+        "placeholder": ""
+      },
+      "enableAnimation": false,
+      "kit": "cyber",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": -30120
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "envmap": "scene",
+      "envmapIntensity": 1,
+      "animations": {},
+      "renderMode": "default",
+      "plugins": [],
+      "opacity": 1,
+      "enableRealTimeShadow": false,
+      "useTransparency": false,
+      "center": false,
+      "fixedTransform": false,
+      "id": "model-qd4L8YLm5gF3lWGOiq2pJ",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779891256218,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH",
+        "isSensor": false,
+        "dynamicProps": {
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0,
+          "linearDamping": 0,
+          "angularDamping": 0
+        }
+      }
+    },
+    "model-91BI3KrP377riOiWlL5x2": {
+      "type": "model",
+      "mime_type": "model/gltf-binary",
+      "url": "/assets/uploaded-assets-8a9ddb63668a4f127b51056968d08b09a1d92fd7364c279186156d4518907870.glb",
+      "name": "vavortex-lobby.glb",
+      "preview": null,
+      "optimized": {
+        "high": "/assets/optimized/a9c5bdd2d0cac2f89ca29e110393e60459be2d848f72036fa5d17d2e38bd25ce_v0_high.glb",
+        "low": "/assets/optimized/a9c5bdd2d0cac2f89ca29e110393e60459be2d848f72036fa5d17d2e38bd25ce_v0_low.glb",
+        "low_compressed": "/assets/optimized/a9c5bdd2d0cac2f89ca29e110393e60459be2d848f72036fa5d17d2e38bd25ce_v0_low_compressed.glb"
+      },
+      "meta": {
+        "hash": "8a9ddb63668a4f127b51056968d08b09a1d92fd7364c279186156d4518907870",
+        "addedBy": "",
+        "placeholder": ""
+      },
+      "enableAnimation": false,
+      "kit": "cyber",
+      "position": {
+        "x": -0.855224922189611,
+        "y": 0,
+        "z": -39990
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "envmap": "scene",
+      "envmapIntensity": 1,
+      "animations": {},
+      "renderMode": "default",
+      "plugins": [],
+      "opacity": 1,
+      "enableRealTimeShadow": true,
+      "useTransparency": false,
+      "center": false,
+      "fixedTransform": false,
+      "id": "model-91BI3KrP377riOiWlL5x2",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779892904927,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH",
+        "isSensor": false,
+        "dynamicProps": {
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0,
+          "linearDamping": 0,
+          "angularDamping": 0
+        }
+      }
+    },
+    "mesh-AVfK6mmHQgzhzUM2MQHkU": {
+      "type": "mesh",
+      "kit": "cyber",
+      "name": "",
+      "comment": "",
+      "renderMode": "default",
+      "wireframe": false,
+      "castShadow": true,
+      "receiveShadow": true,
+      "geometry": {
+        "type": "box",
+        "boxParams": {},
+        "sphereParams": {
+          "radius": 1,
+          "widthSegments": 32,
+          "heightSegments": 32
+        },
+        "cylinderParams": {
+          "radiusTop": 1,
+          "radiusBottom": 1,
+          "height": 1,
+          "radialSegments": 32,
+          "heightSegments": 1,
+          "openEnded": false
+        }
+      },
+      "color": "#ffffff",
+      "image": "",
+      "opacity": 0,
+      "plugins": [],
+      "scale": {
+        "x": 8,
+        "y": 0.1,
+        "z": 13
+      },
+      "position": {
+        "x": 0.030975092188346078,
+        "y": 1.6133318288232035,
+        "z": -39999.3516841125
+      },
+      "rotation": {
+        "x": 0.3455751918948773,
+        "y": 0,
+        "z": 0
+      },
+      "display": true,
+      "displayInEditor": true,
+      "id": "mesh-AVfK6mmHQgzhzUM2MQHkU",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779892636524,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "CUBE",
+        "isSensor": false,
+        "dynamicProps": {
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0,
+          "linearDamping": 0,
+          "angularDamping": 0
+        }
+      }
+    },
+    "model-63GrQu3lBzrv8qG5ElNu-": {
+      "type": "model",
+      "mime_type": "model/gltf-binary",
+      "url": "/assets/uploaded-assets-0d62aef32d9eb864affef47fdb6207a7f2bdbe462bb6146a41151064db050c8d.glb",
+      "name": "unity-village.glb",
+      "preview": null,
+      "optimized": {
+        "high": "/assets/optimized/e3b3c756d532142e005f6e7b32c7b507e7d0171dbd20c3e5f7712b2e1bb8a516_v0_high.glb",
+        "low": "/assets/optimized/e3b3c756d532142e005f6e7b32c7b507e7d0171dbd20c3e5f7712b2e1bb8a516_v0_low.glb",
+        "low_compressed": "/assets/optimized/e3b3c756d532142e005f6e7b32c7b507e7d0171dbd20c3e5f7712b2e1bb8a516_v0_low_compressed.glb"
+      },
+      "meta": {
+        "hash": "0d62aef32d9eb864affef47fdb6207a7f2bdbe462bb6146a41151064db050c8d",
+        "addedBy": "",
+        "placeholder": ""
+      },
+      "enableAnimation": false,
+      "kit": "cyber",
+      "position": {
+        "x": 0,
+        "y": 100,
+        "z": -300
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0.790832750166246,
+        "z": 0
+      },
+      "scale": {
+        "x": 0.69,
+        "y": 0.69,
+        "z": 0.69
+      },
+      "envmap": "scene",
+      "envmapIntensity": 1,
+      "animations": {},
+      "renderMode": "default",
+      "plugins": [],
+      "opacity": 1,
+      "enableRealTimeShadow": true,
+      "useTransparency": false,
+      "center": false,
+      "fixedTransform": false,
+      "id": "model-63GrQu3lBzrv8qG5ElNu-",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779974755626,
+      "lock": {
+        "position": true,
+        "rotation": true,
+        "lockedBy": "admin"
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH",
+        "isSensor": false,
+        "dynamicProps": {
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0,
+          "linearDamping": 0,
+          "angularDamping": 0
+        }
+      }
+    },
+    "terrain-1779923936177": {
+      "type": "terrain",
+      "id": "terrain-1779923936177",
+      "kit": "cyber",
+      "position": {
+        "x": 0,
+        "y": 0.3,
+        "z": -50000
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 150,
+        "z": 1
+      },
+      "color": "#bbbbbb",
+      "noiseEnabled": false,
+      "definition": 100,
+      "seed": 4321,
+      "noiseDomain": 5,
+      "smoothCenter": 0.5,
+      "smoothLength": 0.1,
+      "islandSmooth": 1,
+      "islandLength": 0.1,
+      "innerRadius": 0,
+      "textureOpts": {
+        "id": "wooden",
+        "name": "Wood",
+        "image": "https://cdn.oncyber.xyz/engine-assets/terrain/woodenImg-v2.png",
+        "path": "https://cdn.oncyber.xyz/engine-assets/terrain/wooden.jpeg",
+        "format": ".jpg"
+      },
+      "tiles": 20,
+      "mode": "shader",
+      "shader": "grid",
+      "shape": "plane",
+      "griddiv": 180,
+      "lineWidth": 0.5,
+      "gridColor": "#000000",
+      "edgeTransition": 5,
+      "noTileDisplacement": 1,
+      "smoothAngle": 0.7,
+      "visibleOnOcclusion": true,
+      "textureSideOpts": {
+        "id": "grass",
+        "name": "Grass",
+        "image": "https://cdn.oncyber.xyz/engine-assets/terrain/grassImg-v2.png",
+        "path": "https://cdn.oncyber.xyz/engine-assets/terrain/grass.jpg",
+        "format": ".jpg"
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH"
+      },
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1785416843995,
+      "lock": null
+    },
+    "portal-Ag9W4oNTw7_5tL6Rbko7C": {
+      "type": "portal",
+      "kit": "cyber",
+      "name": "",
+      "position": {
+        "x": -20.103781967197534,
+        "y": 43.708950461857704,
+        "z": -50012.973939399315
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "destination": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "radius": 1,
+      "color": "#00ffff",
+      "opacity": 0.8,
+      "display": true,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "fixed",
+        "colliderType": "cylinder",
+        "isSensor": true
+      },
+      "id": "portal-Ag9W4oNTw7_5tL6Rbko7C",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779926427629
+    },
+    "model-cmFkhu7h8kLAhK-hV80cj": {
+      "type": "model",
+      "mime_type": "model/gltf-binary",
+      "url": "/assets/uploaded-assets-11fe7329a6c2d008effcdd755172bd352b767ce93263bda024f5292b6faaeee8.glb",
+      "name": "conf-buddies.glb",
+      "preview": null,
+      "optimized": {
+        "high": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_high.glb",
+        "low": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_low.glb",
+        "low_compressed": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_low_compressed.glb"
+      },
+      "meta": {
+        "hash": "11fe7329a6c2d008effcdd755172bd352b767ce93263bda024f5292b6faaeee8",
+        "addedBy": "",
+        "placeholder": ""
+      },
+      "enableAnimation": false,
+      "kit": "cyber",
+      "position": {
+        "x": -2.0516453466328417,
+        "y": 41.903498777319655,
+        "z": -49986.29886848074
+      },
+      "rotation": {
+        "x": -3.141592653589793,
+        "y": 1.2246467991473532e-16,
+        "z": -3.141592653589793
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "envmap": "scene",
+      "envmapIntensity": 1,
+      "animations": {},
+      "renderMode": "default",
+      "plugins": [],
+      "opacity": 1,
+      "enableRealTimeShadow": false,
+      "useTransparency": false,
+      "center": false,
+      "fixedTransform": false,
+      "id": "model-cmFkhu7h8kLAhK-hV80cj",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1785416804465,
+      "lock": null,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH",
+        "isSensor": false,
+        "dynamicProps": {
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0,
+          "linearDamping": 0,
+          "angularDamping": 0
+        }
+      }
+    },
+    "portal-Av8T1iUImlswLmvRzpyxI": {
+      "type": "portal",
+      "kit": "cyber",
+      "name": "",
+      "position": {
+        "x": 0,
+        "y": 4,
+        "z": -40008.80312938743
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "destination": {
+        "x": 0,
+        "y": 1,
+        "z": -49996
+      },
+      "radius": 1,
+      "color": "#00ffff",
+      "opacity": 0.8,
+      "display": true,
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "fixed",
+        "colliderType": "cylinder",
+        "isSensor": true
+      },
+      "id": "portal-Av8T1iUImlswLmvRzpyxI",
+      "_meta": {
+        "placeholderId": null
+      },
+      "_version": 1779974981495
+    },
+    "water": {
+      "type": "water",
+      "id": "water",
+      "kit": "cyber",
+      "color": "#001E0F",
+      "opacity": 1,
+      "scale": {
+        "x": 2000,
+        "z": 2000
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": -10000
+      },
+      "collider": {
+        "enabled": true,
+        "rigidbodyType": "FIXED",
+        "colliderType": "MESH"
+      },
+      "_version": 1780325600171
+    }
+  },
+  "params": {},
+  "createdAt": 1768925468915,
+  "updatedAt": 1785416887709
+}

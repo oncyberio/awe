@@ -1,0 +1,109 @@
+[
+  {
+    "hash": "d649d036a1ea80bafd3abeedb6fdedfe2931cd97b5d23157a58426a4fe7866c4",
+    "url": "/assets/uploaded-assets-d649d036a1ea80bafd3abeedb6fdedfe2931cd97b5d23157a58426a4fe7866c4.glb",
+    "name": "truss-landscape-3.glb",
+    "mimeType": "model/gltf-binary",
+    "createdAt": 1779888332565,
+    "lastModified": 1779888332565,
+    "d_optimized_files": {
+      "high": "/assets/optimized/e372f87265b9ab932fd2790b62573ef3b02eb5c1c471728fdd35b784f4b14765_v0_high.glb",
+      "low": "/assets/optimized/e372f87265b9ab932fd2790b62573ef3b02eb5c1c471728fdd35b784f4b14765_v0_low.glb",
+      "low_compressed": "/assets/optimized/e372f87265b9ab932fd2790b62573ef3b02eb5c1c471728fdd35b784f4b14765_v0_low_compressed.glb"
+    }
+  },
+  {
+    "hash": "2b8f46e4d5c45da7e7335b5a1ee9387da3e9db2516766d11c5cca6e8a31d8048",
+    "url": "/assets/uploaded-assets-2b8f46e4d5c45da7e7335b5a1ee9387da3e9db2516766d11c5cca6e8a31d8048.glb",
+    "name": "paladinpunks_27.glb",
+    "mimeType": "model/gltf-binary",
+    "createdAt": 1779889498142,
+    "lastModified": 1779889498142,
+    "d_optimized_files": {
+      "high": "/assets/optimized/c67454246ab6896429966a2849e02679177228a9efe27e144c114e4a7d01adcb_v0_high.glb",
+      "low": "/assets/optimized/c67454246ab6896429966a2849e02679177228a9efe27e144c114e4a7d01adcb_v0_low.glb",
+      "low_compressed": "/assets/optimized/c67454246ab6896429966a2849e02679177228a9efe27e144c114e4a7d01adcb_v0_low_compressed.glb"
+    }
+  },
+  {
+    "hash": "2f668e7b5ae87b01f42b8c3b6797ebd2db0300b03f560214c064691b6cce14ea",
+    "url": "/assets/uploaded-assets-2f668e7b5ae87b01f42b8c3b6797ebd2db0300b03f560214c064691b6cce14ea.glb",
+    "name": "fake-warehouse-transformed-4k.glb",
+    "mimeType": "model/gltf-binary",
+    "createdAt": 1779889754863,
+    "lastModified": 1779889754863,
+    "d_optimized_files": {
+      "high": "/assets/optimized/f5e4aca99bf688ba641df265f875a9400e9ca877df3ac4a94f6cef07648174a3_v0_high.glb",
+      "low": "/assets/optimized/f5e4aca99bf688ba641df265f875a9400e9ca877df3ac4a94f6cef07648174a3_v0_low.glb",
+      "low_compressed": "/assets/optimized/f5e4aca99bf688ba641df265f875a9400e9ca877df3ac4a94f6cef07648174a3_v0_low_compressed.glb"
+    }
+  },
+  {
+    "hash": "86b546f95c4c0e3fb20cab05b8d709c69a8c3394d09a2d4b9acc5792e36c35ba",
+    "url": "/assets/uploaded-assets-86b546f95c4c0e3fb20cab05b8d709c69a8c3394d09a2d4b9acc5792e36c35ba.glb",
+    "name": "downtown_buildings_set_-_low_poly_model.glb",
+    "mimeType": "model/gltf-binary",
+    "createdAt": 1779891195813,
+    "lastModified": 1779891195813,
+    "d_optimized_files": {
+      "high": "/assets/optimized/073df274ae856ecf64bafc2173d54666f62d1dfe4c32a6f3a59b04f9586ffa02_v0_high.glb",
+      "low": "/assets/optimized/073df274ae856ecf64bafc2173d54666f62d1dfe4c32a6f3a59b04f9586ffa02_v0_low.glb",
+      "low_compressed": "/assets/optimized/073df274ae856ecf64bafc2173d54666f62d1dfe4c32a6f3a59b04f9586ffa02_v0_low_compressed.glb"
+    }
+  },
+  {
+    "hash": "8a9ddb63668a4f127b51056968d08b09a1d92fd7364c279186156d4518907870",
+    "url": "/assets/uploaded-assets-8a9ddb63668a4f127b51056968d08b09a1d92fd7364c279186156d4518907870.glb",
+    "name": "vavortex-lobby.glb",
+    "mimeType": "model/gltf-binary",
+    "createdAt": 1779892337845,
+    "lastModified": 1779892337845,
+    "d_optimized_files": {
+      "high": "/assets/optimized/a9c5bdd2d0cac2f89ca29e110393e60459be2d848f72036fa5d17d2e38bd25ce_v0_high.glb",
+      "low": "/assets/optimized/a9c5bdd2d0cac2f89ca29e110393e60459be2d848f72036fa5d17d2e38bd25ce_v0_low.glb",
+      "low_compressed": "/assets/optimized/a9c5bdd2d0cac2f89ca29e110393e60459be2d848f72036fa5d17d2e38bd25ce_v0_low_compressed.glb"
+    }
+  },
+  {
+    "hash": "59d715ac9a03f52eb9e65ebd4b7da5df2232b44f0e1bcad567f69aeb7bf4a3dc",
+    "url": "/assets/uploaded-assets-59d715ac9a03f52eb9e65ebd4b7da5df2232b44f0e1bcad567f69aeb7bf4a3dc.webp",
+    "name": "1705524323408.webp",
+    "mimeType": "image/webp",
+    "createdAt": 1779923423816,
+    "lastModified": 1779923423816
+  },
+  {
+    "hash": "0d62aef32d9eb864affef47fdb6207a7f2bdbe462bb6146a41151064db050c8d",
+    "url": "/assets/uploaded-assets-0d62aef32d9eb864affef47fdb6207a7f2bdbe462bb6146a41151064db050c8d.glb",
+    "name": "unity-village.glb",
+    "mimeType": "model/gltf-binary",
+    "createdAt": 1779923468207,
+    "lastModified": 1779923468207,
+    "d_optimized_files": {
+      "high": "/assets/optimized/e3b3c756d532142e005f6e7b32c7b507e7d0171dbd20c3e5f7712b2e1bb8a516_v0_high.glb",
+      "low": "/assets/optimized/e3b3c756d532142e005f6e7b32c7b507e7d0171dbd20c3e5f7712b2e1bb8a516_v0_low.glb",
+      "low_compressed": "/assets/optimized/e3b3c756d532142e005f6e7b32c7b507e7d0171dbd20c3e5f7712b2e1bb8a516_v0_low_compressed.glb"
+    }
+  },
+  {
+    "hash": "11fe7329a6c2d008effcdd755172bd352b767ce93263bda024f5292b6faaeee8",
+    "url": "/assets/uploaded-assets-11fe7329a6c2d008effcdd755172bd352b767ce93263bda024f5292b6faaeee8.glb",
+    "name": "conf-buddies.glb",
+    "mimeType": "model/gltf-binary",
+    "createdAt": 1779923559026,
+    "lastModified": 1779923559026,
+    "d_optimized_files": {
+      "high": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_high.glb",
+      "low": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_low.glb",
+      "low_compressed": "/assets/optimized/966873209e21713ffa4ca1c8b31096b3bfda9b76ed979f91ad3c587092fc7703_v0_low_compressed.glb"
+    }
+  },
+  {
+    "hash": "d168111aa19bf1f4e384bf13174f1381235f908cc30887780db200382410e919",
+    "url": "/assets/uploaded-assets-d168111aa19bf1f4e384bf13174f1381235f908cc30887780db200382410e919.mp4",
+    "name": "Standard_Mode_Make_Rio_and_the_little_ghost_wa.mp4",
+    "mimeType": "video/mp4",
+    "createdAt": 1780126185589,
+    "lastModified": 1780126185589
+  }
+]

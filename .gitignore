@@ -98,4 +98,4 @@ logs/
 scripts/migration.ts
 
 # apps
-apps/*
+# apps/*

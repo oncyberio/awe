@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@source not "../../../public";
+@source "../../../node_modules/@oncyberio/studio/src";
+@import "@oncyberio/studio/styles";
