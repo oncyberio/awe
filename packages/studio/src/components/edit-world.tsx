@@ -17,6 +17,7 @@ import { useCurrentGameData } from "../contexts/game-data-context";
 import { useContentTab } from "../contexts/content-tab-context";
 import { useEditorService } from "../contexts/editor-service-context";
 import { WorldSettingsToolbar } from "./world-settings/toolbar";
+import { WorldConfigPanel } from "./world-config-panel";
 import { useCoordsChangeHandler } from "../hooks/use-coords-change-handler";
 import { useWorldUpdateHandler } from "../hooks/use-world-update-handler";
 
@@ -43,6 +44,10 @@ const ContentMap = {
   addAssetsV1: {
     title: "Add assets V1",
     content: () => <AddAssets />,
+  },
+  settings: {
+    title: "Settings",
+    content: () => <WorldConfigPanel />,
   },
   script: {
     title: "Script",
@@ -113,7 +118,7 @@ export function EditWorld({
         )}
         ref={clickRef}
       >
-        {activeTab === "addAssetsV1" && (
+        {(activeTab === "addAssetsV1" || activeTab === "settings") && (
           <ContentBar />
         )}
 

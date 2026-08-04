@@ -11,8 +11,9 @@ import {
 } from "three";
 import { Component3D, DataChangeOpts } from "../../abstract/component-3d";
 import { PortalComponentData } from "./portal-data";
-import { ChunkManager } from "../../chunk-manager";
 import { IS_EDIT_MODE } from "../../../internal/constants";
+import emitter from "../../../internal/engine-emitter";
+import { GameEvents } from "../../../internal/game-events";
 
 export type { PortalComponentData } from "./portal-data";
 
@@ -112,8 +113,10 @@ function disposePool(): void {
 /**
  * @public
  *
- * A portal component that teleports the player avatar to a
- * configured destination on sensor enter.
+ * A portal acts as a named spawnpoint. Entering one (sensor enter) opens the
+ * destination directory ("yellowpages") via the `PORTAL_OPEN` event, letting
+ * the player travel to any other portal — a one-to-many relationship rather
+ * than a hard-wired one-to-one link.
  *
  * Uses a shared InstancedMesh for all portal visuals (one draw call).
  */
@@ -123,7 +126,7 @@ export class PortalComponent extends Component3D<PortalComponentData> {
 	_instanceIndex = -1;
 
 	private _collision: Mesh = null;
-	private _active = false;
+	private _lastTrigger = 0;
 	private _cleanup: (() => void) | null = null;
 
 	/** @internal */
@@ -145,44 +148,25 @@ export class PortalComponent extends Component3D<PortalComponentData> {
 		if (IS_EDIT_MODE) return;
 
 		this.onSensorEnter((event) => {
-			this._teleport(event.other);
+			this._open(event.other);
 		});
 	}
 
-	private async _teleport(target: Component3D) {
-		if (this._active) return;
+	/**
+	 * Open the destination directory for the player who entered, gated by a
+	 * cooldown so it doesn't re-fire while the avatar lingers on the disc or
+	 * arrives via travel.
+	 */
+	private _open(avatar: Component3D) {
+		const cooldown = this.data.cooldown ?? 1500;
+		const now = performance.now();
+		if (now - this._lastTrigger < cooldown) return;
+		this._lastTrigger = now;
 
-		const dest = this.data.destination;
-		if (!dest) return;
-
-		const avatar = target;
-		if (!avatar?.rigidBody) return;
-
-		this._active = true;
-
-		const targetPos = new Vector3(dest.x ?? 0, dest.y ?? 0, dest.z ?? 0);
-
-		// Disable physics — avatar won't fall
-		avatar.rigidBody.resetVelocities();
-		avatar.rigidBody.enabled = false;
-
-		// Set position directly on the component
-		avatar.position.copy(targetPos);
-
-		// Load destination chunk if needed
-		const chunks = this.space.chunks;
-		if (chunks) {
-			const targetChunkKey = ChunkManager.posToKey(targetPos);
-			if (targetChunkKey !== chunks.currentKey) {
-				await chunks.loadChunk(targetChunkKey);
-			}
-		}
-
-		// Re-enable physics and sync rigid body to the new position
-		avatar.rigidBody.enabled = true;
-		avatar.rigidBody.teleport(targetPos, avatar.quaternion);
-
-		this._active = false;
+		emitter.emit(GameEvents.PORTAL_OPEN, {
+			portalId: this.data.id,
+			avatar,
+		});
 	}
 
 	/** @internal */

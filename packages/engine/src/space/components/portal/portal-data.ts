@@ -22,8 +22,31 @@ export interface PortalComponentData extends Component3DData {
 
 	scale?: XYZ;
 
-	/** Target world position to teleport to. */
-	destination?: XYZ;
+	/**
+	 * Display name for the spawnpoint, surfaced in the destination directory
+	 * listing ("yellowpages"). Stored separately from the component's reserved
+	 * `name` field. Provided to the generated portal index.
+	 */
+	p_name?: string;
+
+	/**
+	 * Thumbnail surfaced in the destination directory listing ("yellowpages").
+	 * The studio image-upload control stores an upload descriptor object; the
+	 * generated portal index resolves it down to a plain URL string.
+	 */
+	image?: string | { path?: string; image?: string; name?: string };
+
+	/**
+	 * URL-friendly identifier for the spawnpoint, surfaced in the directory
+	 * listing alongside the name. Provided to the generated portal index.
+	 */
+	slug?: string;
+
+	/**
+	 * Cooldown in milliseconds between directory opens, preventing the portal
+	 * from re-firing while the avatar lingers on the disc. Defaults to `1500`.
+	 */
+	cooldown?: number;
 
 	/** Portal disc radius. Defaults to `1`. */
 	radius?: number;

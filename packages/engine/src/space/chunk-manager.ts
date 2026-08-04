@@ -35,6 +35,7 @@ export class ChunkManager {
 
 	private _space: any = null;
 	private _currentKey: string | null = null;
+	private _currentInfo: Record<string, any> | null = null;
 	private _chunkComponents: any[] = [];
 	private _loading = false;
 	private _cleanup: (() => void) | null = null;
@@ -43,6 +44,7 @@ export class ChunkManager {
 	private _pendingRestore: { pos: Vector3; avatar: any } | null = null;
 
 	get currentKey() { return this._currentKey; }
+	get currentInfo() { return this._currentInfo; }
 	get isLoading() { return this._loading; }
 	get chunkSize() { return CHUNK_SIZE; }
 
@@ -112,6 +114,30 @@ export class ChunkManager {
 		await this._transition(this._currentKey);
 	}
 
+	/**
+	 * Teleport the avatar to a world position, loading the destination chunk
+	 * if it differs from the current one. Disables physics during the move so
+	 * the avatar doesn't fall while the chunk streams in.
+	 *
+	 * This is the shared "travel" primitive used by the portal directory UI.
+	 */
+	async travelTo(position: Vector3, avatar?: any) {
+		const target = avatar ?? this._space?.components?.byType?.("avatar")?.[0];
+		if (!target?.rigidBody) return;
+
+		target.rigidBody.resetVelocities();
+		target.rigidBody.enabled = false;
+		target.position.copy(position);
+
+		const targetKey = posToChunkKey(position);
+		if (targetKey !== this._currentKey) {
+			await this.loadChunk(targetKey);
+		}
+
+		target.rigidBody.enabled = true;
+		target.rigidBody.teleport(position, target.quaternion);
+	}
+
 	private _checkBoundary() {
 		if (this._loading || !this._space) return;
 
@@ -141,6 +167,7 @@ export class ChunkManager {
 			}
 			else {
 				this._currentKey = targetKey;
+				this._currentInfo = null;
 				console.log(`Chunk ${targetKey}: empty (no file)`);
 			}
 
@@ -179,6 +206,7 @@ export class ChunkManager {
 
 	private async _loadChunk(key: string, data: any) {
 		this._currentKey = key;
+		this._currentInfo = data.info ?? null;
 
 		// Apply presets to existing singletons
 		const presets = data.presets ?? {};
@@ -189,9 +217,9 @@ export class ChunkManager {
 			}
 		}
 
-		// Create chunk assets
-		const components = data.components ?? {};
-		const entries = Object.values(components) as any[];
+		// Create chunk assets (back-compat: older files used `components`)
+		const assets = data.assets ?? data.components ?? {};
+		const entries = Object.values(assets) as any[];
 
 		for (const entry of entries) {
 			try {

@@ -1,4 +1,14 @@
-import { getGameData, getGameRevision, updateGame, switchChunk, listChunks } from "../actions/game";
+import {
+  getGameData,
+  getGameRevision,
+  updateGame,
+  switchChunk,
+  listChunks,
+  getChunkConfig,
+  setChunkConfig,
+  getRoles,
+  setRoles,
+} from "../actions/game";
 
 export const ClientGameService = {
   getGameData,
@@ -6,4 +16,8 @@ export const ClientGameService = {
   updateGame,
   switchChunk,
   listChunks,
+  getChunkConfig,
+  setChunkConfig,
+  getRoles,
+  setRoles,
 };

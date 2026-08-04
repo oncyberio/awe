@@ -77,6 +77,14 @@ export const GameEvents = {
 
   /** Component factory removed. Callback: `(factory) => void` */
   COMPONENT_FACTORY_REMOVED: "component_factory_removed",
+
+  // ─── Portal ──────────────────────────────────────────────────────────
+  /**
+   * A portal was entered. The host should open the destination directory
+   * ("yellowpages") so the player can pick where to travel.
+   * Callback: `(payload: { portalId: string; avatar: unknown }) => void`
+   */
+  PORTAL_OPEN: "portal_open",
 } as const;
 
 /**
@@ -143,6 +151,14 @@ export interface GameEventListeners {
   [GameEvents.COMPONENT_FACTORY_ADDED]: (factory: unknown) => void;
   /** Component factory unregistered. */
   [GameEvents.COMPONENT_FACTORY_REMOVED]: (factory: unknown) => void;
+
+  /** ─── Portal Events ──────────────────────────────────────────────── */
+
+  /** Player entered a portal; open the destination directory. */
+  [GameEvents.PORTAL_OPEN]: (payload: {
+    portalId: string;
+    avatar: unknown;
+  }) => void;
 
   /** ─── Game Lifecycle Events ──────────────────────────────────────── */
 
